@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/14 08:29:47 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/11/14 11:47:13 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/11/14 14:10:46 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,6 @@ t_lsargs	*ls_save_args(int ac, char **av)
 		ft_printf("newstatus(%d)", status);
 		ft_putendl("");
 	}
-	(void)av;
+	printargs(ret);
 	return (ret);
 }
