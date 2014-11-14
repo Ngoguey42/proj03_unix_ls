@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/12 15:45:01 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/11/14 14:10:22 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/11/14 16:29:12 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ int		main(int ac, char **av)
 	t_lsargs	*args;
 	int i;
 
-		
 
 	ft_printf(":und:FT_LS{%Pd}:eou:(", ac);//debug, print args
 	for (i = 0; i < ac ; i++)//debug, print args

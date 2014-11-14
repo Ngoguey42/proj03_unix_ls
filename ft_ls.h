@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/12 15:54:54 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/11/14 14:09:39 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/11/14 16:22:51 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 
 struct		s_lsargs
 {
-	char	**folders;
+	t_list	**folders;
 	t_byte	txfmt;
 	t_byte	lgfmt;
 	t_byte	smfmt;
