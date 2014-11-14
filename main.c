@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/12 15:45:01 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/11/14 09:42:16 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/11/14 11:28:55 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,6 @@ strerror
 ** First calls 'ls_save_args', might exit if invalid args or malloc fails.
 */
 
-typedef struct	s_params
-{
-	
-	
-}				t_params;
-
-int		parse_acav(int ac, char **av)
-{
-	(void)ac;
-	(void)av;
-	return (0);
-}
 
 int	testtrucs(void);
 

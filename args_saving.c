@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/14 08:29:47 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/11/14 10:01:43 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/11/14 11:47:13 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ static int	get_arg_type(char *curarg)
 	return (3);
 }
 
-
 static int	get_saving_status(int *status, char *curarg)
 {
 	int		argtype;
@@ -57,7 +56,7 @@ static int	get_saving_status(int *status, char *curarg)
 	ft_printf("foundtype(%d)", argtype);
 	if (!argtype)
 		*status = 9;
-	else if (*status < 2 && argtype <= 2) 
+	else if (*status < 2 && argtype <= 2)
 		*status = 1;
 	else if (*status < 2)
 		*status = 2;
@@ -65,7 +64,6 @@ static int	get_saving_status(int *status, char *curarg)
 		return (3);
 	return (argtype);
 }
-
 
 t_lsargs	*ls_save_args(int ac, char **av)
 {
@@ -77,13 +75,15 @@ t_lsargs	*ls_save_args(int ac, char **av)
 	ls_populate_saveargs_pertype(ls_savearg_pertype);
 	if (!(ret = (t_lsargs*)ft_memalloc(sizeof(t_lsargs))))
 		ft_error_malloc();
+	ls_free_args((void*)ret);
 	status = 0;
 	while (ac-- > 1)
 	{
 		av++;
 		ft_printf("parsing arg(%8s), prevstatus(%d){ ", *av, status);
 		argtype = get_saving_status(&status, *av);
-		ls_savearg_pertype[argtype](*av, ret);
+		if (ls_savearg_pertype[argtype](*av, ret))
+			ft_error_illegal_op(1, 0, LS_FLAGS, &ls_free_args);
 		ft_printf(" }rettype(%d)", argtype);
 		ft_printf("newstatus(%d)", status);
 		ft_putendl("");

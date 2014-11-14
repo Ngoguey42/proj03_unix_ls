@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/12 15:54:54 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/11/14 10:01:39 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/11/14 11:33:26 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ struct		s_lsargs
 typedef struct s_lsargs	t_lsargs;
 
 t_lsargs	*ls_save_args(int ac, char **av);
+void		ls_free_args(void *args);
 int			ls_populate_saveargs_pertype(int (*ls_savearg_pertype[4])(char *arg,
 													t_lsargs *args));
 
