@@ -15,9 +15,9 @@
 
 static void	prnt_linestart(t_byte *b)
 {
-	char	str[9];
+	char		str[9];
 
-	ft_lutoa((unsigned long long int)b, str, 16);
+	ft_lutoa(ft_getptri(b), str, 16);
 	ft_putnchar('0', 8 - ft_strlen(str));
 	ft_putstr(str);
 	ft_putchar(':');

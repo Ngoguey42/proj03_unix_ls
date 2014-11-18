@@ -12,11 +12,17 @@
 
 #include "libft.h"
 
-t_list	*ft_lstat(t_list *lst, size_t nbr)
+/*
+**		Variables interpretations 'ft_lstat':
+** 'lst' has an interpretation if NULL.
+** 'size' all values relevant.
+*/
+
+t_list	*ft_lstat(t_list *lst, size_t s)
 {
-	if (!lst || nbr == 0)
+	if (!lst || s == 0)
 		return (NULL);
-	while (lst && --nbr)
+	while (lst && --s)
 		lst = lst->next;
 	return (lst);
 }

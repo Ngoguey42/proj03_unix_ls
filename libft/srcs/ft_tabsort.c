@@ -1,28 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_div.c                                           :+:      :+:    :+:   */
+/*   ft_tabsort.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/03 19:59:51 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/11/03 20:00:24 by ngoguey          ###   ########.fr       */
+/*   Created: 2014/11/17 08:30:06 by ngoguey           #+#    #+#             */
+/*   Updated: 2014/11/17 09:31:53 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "ft_math.h"
+#include <libft.h>
 
-div_t	ft_div(int num, int denom)
+void	ft_tabsort(void **tab, int (*f)(const void *s1, const void *s2))
 {
-	div_t	res;
+	void	**cmp;
+	void	*tmp;
 
-	res.quot = num / denom;
-	res.rem = num % denom;
-	if (num >= 0 && res.rem < 0)
+	while (*tab)
 	{
-		res.quot++;
-		res.rem -= denom;
+		cmp = tab + 1;
+		while (*cmp)
+		{
+			if (f(*tab, *cmp) > 0)
+			{
+				tmp = *tab;
+				*tab = *cmp;
+				*cmp = tmp;
+			}
+			cmp++;
+		}
+		tab++;
 	}
-	return (res);
 }

@@ -12,12 +12,18 @@
 
 #include "libft.h"
 
+/*
+**		Variables interpretations 'ft_lstsize':
+** 'alst' unprotected, segfaults if NULL.
+** '*alst' has an interpretation if NULL.
+*/
+
 void	ft_lstrev(t_list **alst)
 {
 	t_list	*cur;
 	t_list	*next;
 
-	if (!alst || !*alst)
+	if (!*alst)
 		return ;
 	cur = (*alst)->next;
 	while (cur)

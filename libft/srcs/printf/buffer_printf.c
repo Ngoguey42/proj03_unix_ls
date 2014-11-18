@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/12 11:48:59 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/11/12 11:58:21 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/11/17 10:26:27 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 
 int		ptf_buffer_infos(char *arg1, int arg2)
 {
-	static int	infos[4] = {0, 0, 0, 2};
+	static int	infos[4] = {0, 0, 0, 1};
 
 	if (ft_strequ("setwid", arg1))
 		infos[1] = arg2 < 0 ? infos[1] : arg2;

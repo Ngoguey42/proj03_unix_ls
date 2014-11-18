@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/07 18:35:17 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/11/12 12:28:02 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/11/17 10:50:41 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,9 @@
 /*
 ** BUFFERS
 */
-# define DEFAULT_SCREEN_WIDTH 200
-# define DEFAULT_COLS_SPACER '.'
-# define DEFAULT_FILLER '_'
+# define DEFAULT_SCREEN_WIDTH 75
+# define DEFAULT_COLS_SPACER ' '
+# define DEFAULT_FILLER ' '
 
 /*
 ** Main struct (linked list). (One for each '%' in format)[+1].

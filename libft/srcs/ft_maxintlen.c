@@ -18,11 +18,11 @@
 ** Length is rounded up for uncommon bases.
 */
 
-int		g_base2_sizes[4] = {16, 32, 0, 64};
-int		g_base8_sizes[4] = {6, 12, 0, 22};
-int		g_base10_sizes[4] = {6, 11, 0, 20};
-int		g_base16_sizes[4] = {5, 9, 0, 17};
-int		g_base36_sizes[4] = {4, 7, 0, 14};
+const int		g_base2_sizes[4] = {16, 32, 0, 64};
+const int		g_base8_sizes[4] = {6, 12, 0, 22};
+const int		g_base10_sizes[4] = {6, 11, 0, 20};
+const int		g_base16_sizes[4] = {5, 9, 0, 17};
+const int		g_base36_sizes[4] = {4, 7, 0, 14};
 
 int		ft_maxintlen(size_t sizeofint, int base)
 {

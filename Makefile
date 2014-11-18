@@ -12,32 +12,52 @@
 
 NAME = ft_ls
 
-INCLUDE = ./
+
+ERRSRCPATH = ft_error
+ERRINCLUDE = $(ERRSRCPATH)/
+
 SRCPATH = .
+INCLUDE = ./
+
 OBJPATH = obj
+
 LFTPATH = libft/
-LFTIPATH = includes/
+LFTIPATH = $(LFTPATH)includes/
 
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
 RM = rm -rf
 
-SRCSFILES = main.c
+SRCSFILES = main.c debug.c free_mem.c args_saving.c args_saving_pertype.c\
+print_long_format.c print_small_format.c print_target_format.c
+ERRSRCSFILES = ft_error.c
+
 
 SRC = $(addprefix $(SRCPATH)/,$(SRCSFILES))
 OBJECTS = $(SRC:$(SRCPATH)/%.c=$(OBJPATH)/%.o)
 
+ERRSRC = $(addprefix $(ERRSRCPATH)/,$(ERRSRCSFILES))
+ERROBJECTS = $(ERRSRC:$(ERRSRCPATH)/%.c=$(OBJPATH)/%.o)
+
 all: $(NAME)
 
-$(NAME): cpllibft $(OBJECTS)
-	$(CC) -o $@ $(CFLAGS) $(OBJECTS) -L $(LFTPATH) -lft
+$(NAME): cpllibft $(OBJECTS) $(ERROBJECTS)
+	@echo "[COMPILING FT_LS]"
+	$(CC) -o $@ $(CFLAGS) $(OBJECTS) $(ERROBJECTS) -L $(LFTPATH) -lft
+	@echo -e "[COMPILING FT_LS DONE]\n"
 
 $(OBJECTS): $(OBJPATH)/%.o : $(SRCPATH)/%.c
-	mkdir -p $(dir $@)
-	$(CC) -o $@ $(CFLAGS) -I $(LFTPATH)$(LFTIPATH) -I $(INCLUDE) -L $(LFTPATH) -lft -c $<
+	@mkdir -p $(dir $@)
+	$(CC) -o $@ $(CFLAGS) -I $(LFTIPATH) -I $(INCLUDE) -I $(ERRINCLUDE) -L $(LFTPATH) -lft -c $<
+
+$(ERROBJECTS): $(OBJPATH)/%.o : $(ERRSRCPATH)/%.c
+	@mkdir -p $(dir $@)
+	$(CC) -o $@ $(CFLAGS) -I $(LFTIPATH) -I $(INCLUDE) -I $(ERRINCLUDE) -L $(LFTPATH) -lft -c $<
 
 cpllibft:
+	@echo "[COMPILING LIBFT]"
 	make -C $(LFTPATH)
+	@echo "[COMPILING LIBFT DONE]"
 
 clean:
 	$(RM) $(OBJPATH)

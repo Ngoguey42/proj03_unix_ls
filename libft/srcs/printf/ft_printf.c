@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/12 16:22:21 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/11/14 10:50:50 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/11/17 10:21:02 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,13 @@ int     ft_dprintf(int fd, const char *format, ...)
     ret = ft_vdprintf(fd, format, ap);
     va_end(ap);
     return (ret);
+}
+
+int		ft_printfflush(const char *type, int wid)
+{
+	char	*s;
+
+	if (ft_fbuffer(&s, type, wid) < 0)
+		return (-1);
+	return (ft_printf(s));
 }

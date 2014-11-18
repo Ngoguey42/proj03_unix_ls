@@ -13,13 +13,14 @@
 #include "libft.h"
 
 /*
-** else ? free(content) ??
+**		Variables interpretations 'ft_lstdelone':
+** 'alst' unprotected, segfaults if NULL.
+** '*alst' unprotected, segfaults if NULL.
+** 'del' has an interpretation if NULL.
 */
 
 void	ft_lstdelone(t_list **alst, void (*del)(void*, size_t))
 {
-	if (!alst || !*alst)
-		return ;
 	if (del)
 		del((*alst)->content, (*alst)->content_size);
 	ft_memdel((void**)alst);

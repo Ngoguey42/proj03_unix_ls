@@ -6,12 +6,14 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/14 08:52:13 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/11/14 11:38:07 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/11/18 08:18:30 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
+#include <errno.h>
 #include <libft.h>
 
 /*
@@ -27,17 +29,18 @@
 ** 0x2 files
 */
 
-char		g_names[][6] = {"", "ft_ls"};
+const char	g_names[][6] = {"", "ft_ls"};
+const char	g_flags[][20] = {"", "ABCFGRabdfghlnortu1"};
 const int	g_modes[] = {0x0, 0x03};
 
-void	ft_error_illegal_op(int fi, char o, char *fl, void (*f)(void *p))
+void	ft_error_illegal_op(int fi, char o, char *ex, void (*f)(void *p))
 {
-	ft_dprintf(2, "%s: illegal option -- %c", g_names[fi], o ? o : '-');
+	ft_dprintf(2, "%s: illegal option -- %c", ex, o ? o : '-');
 	if (g_modes[fi] & 0x03)
 	{
 		ft_dprintf(2, "\nusage: %s", g_names[fi]);
 		if (g_modes[fi] & 0x01)
-			ft_dprintf(2, " [-%s]", fl);
+			ft_dprintf(2, " [-%s]", g_flags[fi]);
 		if (g_modes[fi] & 0x02)
 			ft_dprintf(2, " [file ...]");
 	}
@@ -57,4 +60,12 @@ void	ft_error_unknown(void)
 {
 	ft_putendl_fd("Unknown error, exiting program.", 2);
 	exit(EXIT_FAILURE);
+}
+
+void	ft_error_fistrerrno(int fi, char *s)
+{
+	ft_dprintf(2, "%s: ", g_names[fi]);
+	if (s)
+		ft_dprintf(2, "%s: ", s);
+	ft_dprintf(2, "%s\n", strerror(errno));
 }

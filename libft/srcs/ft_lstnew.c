@@ -13,17 +13,27 @@
 #include <stdlib.h>
 #include "libft.h"
 
+/*
+**		Variables interpretations 'ft_lstnew':
+** 'content' interpretation if NULL.
+** 'size' all values relevant.
+** 'malloc#1' protected from NULL.
+** 'malloc#2' protected from NULL, and memory leaks.
+*/
+
 t_list	*ft_lstnew(void const *content, size_t content_size)
 {
 	t_list	*new;
 
-	if (!(new = (t_list*)malloc(sizeof(t_list) * 1)))
+	if (!(new = (t_list*)ft_memalloc(sizeof(t_list) * 1)))
 		return (NULL);
-	ft_bzero((void*)new, sizeof(t_list));
 	if (content != NULL)
 	{
 		if (!(new->content = malloc(content_size)))
+		{
+			free(new);
 			return (NULL);
+		}
 		ft_memcpy(new->content, content, content_size);
 		new->content_size = content_size;
 	}

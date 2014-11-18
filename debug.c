@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/14 14:05:50 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/11/14 14:31:20 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/11/18 07:47:05 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@
 
 void	printargs(t_lsargs *args)
 {
-	ft_printf("%p;%Qp ", args, &args->filters);
+	int	i;
 
+	ft_dprintf(2, "%Qs  %Us format;", "=>", args->ex);
 	ft_dprintf(2, 
-			   "txfmt;tx[%Mhhb] lg[%Mhhb] sm[%Mhhb] fi[%Mhhb] so[%Mhhb] ge[%Mhhb]\n",
+			   "tx[%Mhhb] lg[%Mhhb] sm[%Mhhb] fi[%Mhhb] so[%Mhhb] ge[%Mhhb]\n",
 			   args->txfmt, 
 			   args->lgfmt, 
 			   args->smfmt, 
@@ -27,5 +28,12 @@ void	printargs(t_lsargs *args)
 			   args->sorting, 
 			   args->general
 		);
-	
+	i = 0;
+	ft_dprintf(2, "%Qs  (%u)folders {%p}  ", "=>", args->numf, *args->folders);
+	while ((*args->folders) && (*args->folders)[i])
+	{
+		ft_dprintf(2, "[%d]\"%s\"  ", i, (*args->folders)[i]);
+		i++;
+	}
+	ft_putendl("");
 }

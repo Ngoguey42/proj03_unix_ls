@@ -10,8 +10,27 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include <stdlib.h>
+#include "libft.h"
+
+/*
+**		Variables interpretations 'all functions':
+** 'alst' unprotected, segfaults if NULL.
+** 'content' interpretation if NULL.
+** 'size' all values relevant.
+** 'ft_lstnew' protected from NULL, and memory leaks.
+** ===============================================
+**		Variables interpretations 'ft_lstnewfront':
+** '*alst' can be NULL.
+**		Variables interpretations 'ft_lstnewback':
+** '*alst' has an interpretation if NULL.
+**		Variables interpretations 'ft_lstnewprev':
+** 'lst' presence in 'alst' verified.
+** 'ft_lstpushprev' protected from errors, and memory leaks.
+**		Variables interpretations 'ft_lstnewnext':
+** 'lst' presence in 'alst' verified.
+** 'ft_lstpushnext' protected from errors, and memory leaks.
+*/
 
 t_list	*ft_lstnewfront(t_list **alst,
 	void const *content, size_t content_size)
@@ -45,7 +64,11 @@ t_list	*ft_lstnewprev(t_list **alst, t_list *lst,
 	new = ft_lstnew(content, content_size);
 	if (!new)
 		return (NULL);
-	ft_lstpushprev(alst, lst, new);
+	if (ft_lstpushprev(alst, lst, new))
+	{
+		ft_lstdelone(&new, &ft_lstfreecont);
+		return (NULL);
+	}
 	return (new);
 }
 
@@ -57,6 +80,10 @@ t_list	*ft_lstnewnext(t_list **alst, t_list *lst,
 	new = ft_lstnew(content, content_size);
 	if (!new)
 		return (NULL);
-	ft_lstpushnext(alst, lst, new);
+	if (ft_lstpushnext(alst, lst, new))
+	{
+		ft_lstdelone(&new, &ft_lstfreecont);
+		return (NULL);
+	}
 	return (new);
 }

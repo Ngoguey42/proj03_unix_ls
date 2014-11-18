@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd.c                                        :+:      :+:    :+:   */
+/*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/03 19:51:21 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/11/08 16:13:17 by ngoguey          ###   ########.fr       */
+/*   Created: 2014/11/03 19:34:30 by ngoguey           #+#    #+#             */
+/*   Updated: 2014/11/17 13:36:04 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "libft.h"
 
-void	ft_lstadd(t_list **alst, t_list *new)
+/*
+** 'ft_strcat' concatenates two strings.
+*/
+
+char	*ft_strcatfree(char *s1, char *s2)
 {
-	ft_lstpushfront(alst, new);
+	ft_strcpy(s1 + ft_strlen(s1), s2);
+	free(s2);
+	return (s1);
 }

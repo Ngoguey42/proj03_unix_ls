@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/03 20:28:26 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/11/12 10:53:06 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/11/18 08:54:03 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,26 @@ int		ft_printf(const char *format, ...);
 int		ft_dprintf(int fd, const char *format, ...);
 int		ft_sprintf(char *str, const char *format, ...);
 int		ft_snprintf(char *s, size_t n, const char *format, ...);
+
+int		ft_ibuffer(char *arg1, int arg2);
+int		ft_fbuffer(char **ret, const char *arg1, int arg2);
+int		ft_printfflush(const char *type, int wid);
+
 /*
 ** Character input/output:
 */
 void	ft_putchar(char c);
-
 void	ft_putchar_fd(char c, int fd);
-void	ft_putnchar(char c, size_t n);
 void	ft_putstr(const char *s);
 void	ft_putstr_fd(const char *s, int fd);
 void	ft_putnbr(int i);
 void	ft_putnbr_fd(int n, int fd);
-void	ft_putnbr_base(int n, int base);
-void	ft_putunbr_base(unsigned int n, int base);
 void	ft_putendl(const char *s);
 void	ft_putendl_fd(const char *s, int fd);
+
+void	ft_putnbr_base(int n, int base);
+void	ft_putunbr_base(unsigned int n, int base);
+void	ft_putnchar(char c, size_t n);
 
 /*
 ** -
@@ -56,6 +61,7 @@ void	ft_putendl_fd(const char *s, int fd);
 ** -
 */
 int		ft_atoi(const char *str);
+int		ft_atoi_base(const char *str, int base);
 /*
 ** itoa and co.
 ** ft_itoa		alloc	, int		, base 10
@@ -86,6 +92,7 @@ char	*ft_utoa(t_ui32 value, char *str, int base);
 int		ft_maxintlen(size_t sizeofint, int base);
 char	*ft_pad_string(char *str, char c, int n, int freestr);
 char	*ft_revstr(char *str);
+int		ft_eval_expr(char *str);
 /*
 ** Allocation:
 */
@@ -121,7 +128,7 @@ int		ft_toupper(int c);
 
 int		ft_isascii(int c);
 int		ft_ispair(int c);
-int		ft_isdigit_base(int c, t_ui32 base);
+int		ft_isdigit_base(int c, int base);
 
 /*
 ** -
@@ -136,7 +143,6 @@ void	*ft_memmove(void *dst, const void *src, size_t len);
 void	*ft_memccpy(void *dst, const void *src, int c, size_t n);
 char	*ft_strcpy(char *dst, const char *src);
 char	*ft_strncpy(char *s1, const char *s2, size_t num);
-
 size_t	ft_strlcpy(char *s1, const char *s2, size_t num);
 /*
 ** Concatenation:
@@ -144,6 +150,7 @@ size_t	ft_strlcpy(char *s1, const char *s2, size_t num);
 char	*ft_strcat(char *s1, const char *s2);
 char	*ft_strncat(char *s1, const char *s2, size_t n);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
+char	*ft_strcatfree(char *s1, char *s2);
 /*
 ** Comparison:
 */
@@ -159,11 +166,10 @@ int		ft_match(char *s1, char *s2);
 */
 void	*ft_memchr(const void *s, int c, size_t n);
 char	*ft_strchr(const char *s, int c);
-size_t	ft_strcspn(const char *s1r, const char *s2r);
 char	*ft_strrchr(const char *str, int c);
 size_t	ft_strspn(const char *str1, const char *str2);
+size_t	ft_strcspn(const char *s1r, const char *s2r);
 char	*ft_strstr(const char *s1, const char *s2);
-
 char	*ft_strnstr(const char *s1, const char *s2, size_t n);
 /*
 ** Other:
@@ -206,7 +212,6 @@ double	ft_floor(double nb);
 /*
 ** Floating-point manipulation functions:
 */
-
 int		ft_dbltype(double nbr_ref);
 /*
 ** Other:
@@ -218,27 +223,21 @@ int		ft_addi(int n1, int n2);
 int		ft_mult(int n1, int n2);
 int		ft_divi(int n1, int n2);
 int		ft_modu(int n1, int n2);
-int		ft_eval_expr(char *str);
 t_ui64	ft_getbitarray(unsigned char *nbr, size_t first, size_t last);
-/*
-** div_t	ft_div(int num, int denom);
-** div_t	ft_pythai(int x, int y);
-*/
 
 /*
 ** -
-** My default linked list functions
+** My default linked list manipulation functions
 ** -
 */
 /*
 ** Add functions
 */
 t_list	*ft_lstnew(void const *content, size_t content_size);
-void	ft_lstadd(t_list **alst, t_list *new);
-void	ft_lstpushfront(t_list **alst, t_list *new);
-void	ft_lstpushback(t_list **alst, t_list *new);
-void	ft_lstpushprev(t_list **alst, t_list *lst, t_list *new);
-void	ft_lstpushnext(t_list **alst, t_list *lst, t_list *new);
+int		ft_lstpushfront(t_list **alst, t_list *new);
+int		ft_lstpushback(t_list **alst, t_list *new);
+int		ft_lstpushprev(t_list **alst, t_list *lst, t_list *new);
+int		ft_lstpushnext(t_list **alst, t_list *lst, t_list *new);
 t_list	*ft_lstnewfront(t_list **alst,
 			void const *content, size_t content_size);
 t_list	*ft_lstnewback(t_list **alst,
@@ -293,11 +292,30 @@ size_t	ft_lstsize(t_list *lst);
 void	ft_lstprntone(t_list *lst);
 void	ft_lstprnt(t_list *lst);
 
+
+/*
+** -
+** My default tables manipulation functions
+** -
+*/
+int		ft_tabadd(void ***atab,  void *new);
+t_bool  ft_tabaddm(void ***atab, void *new, size_t size);
+t_tabdt	*ft_tabcc(void **requested);
+size_t	ft_tabsize(void **tab);
+int		ft_tabdel(void ***atab);
+void	ft_tabsort(void **tab, int (*f)(const void *s1, const void *s2));
+
+/*
+** Others
+*/
+size_t	ft_tblsize(void **tbl);
+
 /*
 ** -
 ** My custom debug functions
 ** -
 */
+t_ui64	ft_getptri(void * ptr);
 void	ft_myassert(int relation);
 int		ft_myputnchar(char *str, int num);
 void	*ft_memprint(void *p, size_t s);

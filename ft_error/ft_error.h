@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/14 08:50:11 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/11/14 11:37:57 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/11/18 08:15:33 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 */
 
 void	ft_error_malloc(void);
-void	ft_error_illegal_op(int fi, char o, char *fl, void (*f)(void *p));
+void	ft_error_illegal_op(int fi, char o, char *ex, void (*f)(void *p));
 void	ft_error_unknown(void);
+void	ft_error_fistrerrno(int fi, char *s);
 
 #endif

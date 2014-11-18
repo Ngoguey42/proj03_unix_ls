@@ -12,6 +12,11 @@
 
 #include "libft.h"
 
+/*
+**		Variables interpretations 'ft_lstlast':
+** 'lst' has an interpretation if NULL.
+*/
+
 t_list	*ft_lstlast(t_list *lst)
 {
 	if (!lst)

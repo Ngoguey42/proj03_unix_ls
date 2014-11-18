@@ -12,12 +12,17 @@
 
 #include "libft.h"
 
+/*
+**		Variables interpretations 'ft_lstdel':
+** 'alst' unprotected, segfaults if NULL.
+** '*alst' has an interpretation if NULL.
+** 'del' has an interpretation if NULL.
+*/
+
 void	ft_lstdel(t_list **alst, void (*del)(void*, size_t))
 {
 	t_list	*next;
 
-	if (!alst || !*alst)
-		return ;
 	while (*alst != NULL)
 	{
 		next = (*alst)->next;

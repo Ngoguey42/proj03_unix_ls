@@ -17,3 +17,8 @@ void	ft_putstr(const char *s)
 {
 	write(1, s, ft_strlen(s));
 }
+
+void	ft_putstr_fd(const char *s, int fd)
+{
+	write(fd, s, ft_strlen(s));
+}

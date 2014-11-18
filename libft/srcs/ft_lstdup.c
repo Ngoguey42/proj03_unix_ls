@@ -12,22 +12,27 @@
 
 #include "libft.h"
 
+/*
+**		Variables interpretations 'ft_lstdupone':
+** 'lst' unprotected, but won't segfaults if NULL.
+** 'ft_lstdupone' protected from NULL, and memory leaks.
+*/
+
 t_list	*ft_lstdup(t_list *lst)
 {
 	t_list	*newa;
 	t_list	*new;
 
-	if (!lst)
+	if (!(newa = ft_lstdupone(lst)))
 		return (NULL);
-	new = ft_lstdupone(lst);
-	if (!new)
-		return (NULL);
-	newa = new;
+	new = newa;
 	while ((lst = lst->next))
 	{
-		new->next = ft_lstdupone(lst);
-		if (!new->next)
+		if (!(new->next = ft_lstdupone(lst)))
+		{
+			ft_lstdel(&newa, &ft_lstfreecont);
 			return (NULL);
+		}
 		new = new->next;
 	}
 	return (newa);

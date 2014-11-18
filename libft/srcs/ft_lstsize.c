@@ -12,14 +12,20 @@
 
 #include "libft.h"
 
+/*
+**		Variables interpretations 'ft_lstsize':
+** 'lst' has an interpretation if NULL.
+*/
+
 size_t	ft_lstsize(t_list *lst)
 {
 	size_t	n;
 
-	if (!lst)
-		return (0);
-	n = 1;
-	while ((lst = lst->next))
+	n = 0;
+	while (lst)
+	{
 		n++;
+		lst = lst->next;
+	}
 	return (n);
 }

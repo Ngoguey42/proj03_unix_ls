@@ -15,6 +15,7 @@
 
 /*
 ** 'ft_memalloc' both allocates memory an sets it to 0.
+** (same as calloc, which is never allowed by school).
 */
 
 void	*ft_memalloc(size_t size)

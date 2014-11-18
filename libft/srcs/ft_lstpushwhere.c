@@ -13,42 +13,46 @@
 #include "libft.h"
 
 /*
-**	Place NEW at the beginning of the list beginning with *ALST
-**	if			alst != NULL
-**	and if		new != NULL
+**		Variables interpretations 'all functions':
+** 'alst' unprotected, segfaults if NULL.
+** 'new' unprotected, segfaults if NULL.
+** ===============================================
+**		Variables interpretations 'ft_lstpushfront':
+** '*alst' can be NULL.
+**		Variables interpretations 'ft_lstpushback':
+** '*alst' has an interpretation if NULL.
+**		Variables interpretations 'ft_lstpushnext', 'ft_lstpushprev':
+** 'lst' has an interpretation if NULL.
+** '*alst' has an interpretation if NULL.
+** 'lst' presence in 'alst' verified.
 */
 
-void	ft_lstpushfront(t_list **alst, t_list *new)
+int	ft_lstpushfront(t_list **alst, t_list *new)
 {
-	if (alst && new)
+	new->next = *alst;
+	*alst = new;
+	return (0);
+}
+
+int	ft_lstpushback(t_list **alst, t_list *new)
+{
+	t_list	*tmp;
+
+	if (*alst)
 	{
-		new->next = *alst;
+		tmp = ft_lstlast(*alst);
+		tmp->next = new;
+	}
+	else
 		*alst = new;
-	}
+	return (0);
 }
 
-void	ft_lstpushback(t_list **alst, t_list *new)
+int	ft_lstpushnext(t_list **alst, t_list *lst, t_list *new)
 {
 	t_list	*tmp;
 
-	if (alst && new)
-	{
-		if (*alst)
-		{
-			tmp = ft_lstlast(*alst);
-			tmp->next = new;
-		}
-		else
-			*alst = new;
-	}
-}
-
-void	ft_lstpushnext(t_list **alst, t_list *lst, t_list *new)
-{
-	t_list	*tmp;
-
-	if (alst && new
-		&& ((*alst == NULL && lst == NULL) || (*alst != NULL && lst != NULL)))
+	if ((*alst == NULL && lst == NULL) || (*alst != NULL && lst != NULL))
 	{
 		if (lst == NULL)
 			*alst = new;
@@ -62,16 +66,19 @@ void	ft_lstpushnext(t_list **alst, t_list *lst, t_list *new)
 				new->next = lst->next;
 				lst->next = new;
 			}
+			else
+				return (1);
 		}
+		return (0);
 	}
+	return (1);
 }
 
-void	ft_lstpushprev(t_list **alst, t_list *lst, t_list *new)
+int	ft_lstpushprev(t_list **alst, t_list *lst, t_list *new)
 {
 	t_list	*tmp;
 
-	if (alst && new
-		&& ((*alst == NULL && lst == NULL) || (*alst != NULL && lst != NULL)))
+	if ((*alst == NULL && lst == NULL) || (*alst != NULL && lst != NULL))
 	{
 		if (lst == *alst)
 		{
@@ -88,6 +95,10 @@ void	ft_lstpushprev(t_list **alst, t_list *lst, t_list *new)
 				tmp->next = new;
 				new->next = lst;
 			}
+			else
+				return (1);
 		}
+		return (0);
 	}
+	return (1);
 }

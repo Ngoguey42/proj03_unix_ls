@@ -13,6 +13,12 @@
 #include <stdlib.h>
 #include "libft.h"
 
+/*
+**		Variables interpretations 'ft_lstfreecont':
+** 'content' has an interpretation if NULL.
+** 'size' all values relevant.
+*/
+
 void	ft_lstfreecont(void *content, size_t content_size)
 {
 	if (content)

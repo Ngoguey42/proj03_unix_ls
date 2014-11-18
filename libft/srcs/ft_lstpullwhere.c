@@ -13,11 +13,25 @@
 #include <stdio.h>
 #include "libft.h"
 
+/*
+**		Variables interpretations 'all functions':
+** 'alst' unprotected, segfaults if NULL.
+** '*alst' has an interpretation if NULL.
+** 'lst' has an interpretation if NULL.
+** ===============================================
+**		Variables interpretations 'ft_lstpullprev':
+** 'lst' presence in 'alst' verified, and mustn't be first.
+**		Variables interpretations 'ft_lstpullcur':
+** 'lst' presence in 'alst' verified.
+**		Variables interpretations 'ft_lstpullnext':
+** 'lst' presence in 'alst' verified, and mustn's be last.
+*/
+
 t_list	*ft_lstpullfirst(t_list **alst)
 {
 	t_list	*tmp;
 
-	if (!alst || !*alst)
+	if (!*alst)
 		return (NULL);
 	tmp = *alst;
 	*alst = tmp->next;
@@ -30,7 +44,7 @@ t_list	*ft_lstpulllast(t_list **alst)
 	t_list	*tmp;
 	t_list	*tmp2;
 
-	if (!alst || !*alst)
+	if (!*alst)
 		return (NULL);
 	tmp2 = NULL;
 	tmp = *alst;
@@ -51,7 +65,7 @@ t_list	*ft_lstpullprev(t_list **alst, t_list *lst)
 	t_list	*tmp;
 	t_list	*tmp2;
 
-	if (!alst || !*alst || !lst || lst == *alst)
+	if (!*alst || !lst || lst == *alst)
 		return (NULL);
 	tmp2 = NULL;
 	tmp = *alst;
@@ -74,7 +88,7 @@ t_list	*ft_lstpullcur(t_list **alst, t_list *lst)
 {
 	t_list	*tmp;
 
-	if (!alst || !*alst || !lst)
+	if (!*alst || !lst)
 		return (NULL);
 	if (*alst == lst)
 		*alst = lst->next;

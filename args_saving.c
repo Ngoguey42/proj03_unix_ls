@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/14 08:29:47 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/11/14 14:10:46 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/11/18 07:50:22 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	get_saving_status(int *status, char *curarg)
 	int		argtype;
 
 	argtype = get_arg_type(curarg);
-	ft_printf("foundtype(%d)", argtype);
+	// ft_printf("foundtype(%d)", argtype);
 	if (!argtype)
 		*status = 9;
 	else if (*status < 2 && argtype <= 2)
@@ -63,6 +63,11 @@ static int	get_saving_status(int *status, char *curarg)
 	if (*status == 2)
 		return (3);
 	return (argtype);
+}
+
+static int	strcmp_toconstvoid(const void *s1, const void *s2)
+{
+	return (ft_strcmp((const char*)s1, (const char*)s2));
 }
 
 t_lsargs	*ls_save_args(int ac, char **av)
@@ -77,17 +82,23 @@ t_lsargs	*ls_save_args(int ac, char **av)
 		ft_error_malloc();
 	ls_free_args((void*)ret);
 	status = 0;
+	ret->ex = *av;
 	while (ac-- > 1)
 	{
 		av++;
-		ft_printf("parsing arg(%8s), prevstatus(%d){ ", *av, status);
+		// ft_printf("parsing arg(%8s), prevstatus(%d){ ", *av, status);
 		argtype = get_saving_status(&status, *av);
 		if (ls_savearg_pertype[argtype](*av, ret))
-			ft_error_illegal_op(1, 0, LS_FLAGS, &ls_free_args);
-		ft_printf(" }rettype(%d)", argtype);
-		ft_printf("newstatus(%d)", status);
-		ft_putendl("");
+			ft_error_illegal_op(1, 0, ret->ex, &ls_free_args);
+		// ft_printf(" }rettype(%d)", argtype);
+		// ft_printf("newstatus(%d)", status);
+		// ft_putendl("");
 	}
+	if (!*ret->folders)
+		if (ft_tabadd((void***)ret->folders, "."))
+			ft_error_malloc();
+	ret->numf = ft_tabsize((void**)*ret->folders);
+ 	ft_tabsort((void**)*ret->folders, &strcmp_toconstvoid);
 	printargs(ret);
 	return (ret);
 }

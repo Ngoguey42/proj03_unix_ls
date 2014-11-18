@@ -136,7 +136,8 @@ int		build_nbr_17(t_printf_part *part, va_list *args)
 	part->flags = part->flags | HASH_MASK;
 	width = AND_I(WSTA_MASK) ? va_arg(*args, int) : part->width;
 	precision = AND_I(PSTA_MASK) ? va_arg(*args, int) : part->precision;
-	nbr = (t_ui64)va_arg(*args, t_ui64);
+	nbr = sizeof(void*) == 8 ? (t_ui64)va_arg(*args, t_ui64) :
+		(t_ui32)va_arg(*args, t_ui32);
 	str = STR_EMPTY ? (char*)ft_strdup("") : ft_lutoa_a(nbr, 16);
 	if (precision > 0 && precision > (int)ft_strlen(str))
 		str = ft_pad_string(str, '0', precision, 1);

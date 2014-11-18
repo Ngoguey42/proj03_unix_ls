@@ -32,3 +32,18 @@ void	ft_putnbr(int n)
 		ft_putnbr(n / 10);
 	ft_putchar(n % 10 + '0');
 }
+
+void	ft_putnbr_fd(int n, int fd)
+{
+	if (n < 0)
+	{
+		ft_putchar_fd('-', fd);
+		if (n <= -10)
+			ft_putnbr_fd(-(n / 10), fd);
+		ft_putchar_fd(-(n % 10) + '0', fd);
+		return ;
+	}
+	if (n >= 10)
+		ft_putnbr_fd(n / 10, fd);
+	ft_putchar_fd(n % 10 + '0', fd);
+}
