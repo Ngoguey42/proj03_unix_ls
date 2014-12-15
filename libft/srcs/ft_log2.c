@@ -85,6 +85,7 @@ double			ft_log2(double nb)
 	double			retexp;
 	t_dbl_extract	ex;
 
+	ex.s.exp = 0;
 	if ((type = ft_dbltype(nb)) >= 5 && type <= 7)
 		return ((type == 7) ? M_INFINITY : M_MINFINITY);
 	else if (type >= 4 || type == 2)

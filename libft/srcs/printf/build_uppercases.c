@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/12 12:32:22 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/11/12 12:32:27 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/09 12:13:56 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 /*
 ** 'build_nbr_6' %X
 ** 'build_nbr_14' %A
+** 'build_nbr_8' %F
 */
 
 int		build_nbr_6(t_printf_part *part, va_list *args)
@@ -35,6 +36,18 @@ int		build_nbr_14(t_printf_part *part, va_list *args)
 	char	c;
 
 	build_nbr_13(part, args);
+	i = 0;
+	while ((c = part->nbr_ptr[i]))
+		part->nbr_ptr[i++] = ft_toupper(c);
+	return (1);
+}
+
+int		build_nbr_8(t_printf_part *part, va_list *args)
+{
+	int		i;
+	char	c;
+
+	build_nbr_7(part, args);
 	i = 0;
 	while ((c = part->nbr_ptr[i]))
 		part->nbr_ptr[i++] = ft_toupper(c);

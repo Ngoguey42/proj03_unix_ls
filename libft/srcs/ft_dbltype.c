@@ -38,6 +38,8 @@ int	ft_dbltype(double nbr)
 	t_dbl_extract		extract;
 	t_nan_dbl_extract	extractnan;
 
+	extract.s.sig = 0;
+	extractnan.s.nan = 0;
 	extract.d = nbr;
 	if (extract.s.exp == INF_NAN_EXP)
 	{

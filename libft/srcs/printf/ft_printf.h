@@ -6,16 +6,15 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/07 18:35:17 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/11/17 10:50:41 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/10 11:26:18 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-# include "libft.h"
 # include <stdlib.h>
-# include <stdarg.h>
+# include "libft.h"
 
 /*
 ** TODOLIST
@@ -24,9 +23,19 @@
 */
 
 /*
+** va_ lib to use, if forbidden in project.
+*/
+
+# include <stdarg.h>
+# define VATYPE		va_arg
+# define VASTA		va_start
+# define VACPY		va_copy
+# define VAEND		va_end
+
+/*
 ** FLAGS
 */
-# define CHARS_FLAGS "-+ #0!$MNOPQRU\'"
+# define CHARS_FLAGS "-+ #0!$MNHIJK_\'"
 # define MINU_MASK 0x1
 # define PLUS_MASK 0x2
 # define SPAC_MASK 0x4
@@ -39,32 +48,38 @@
 # define FIRT_C_FLAG_ID		7
 # define NUM_COLOR_FLAGS 	7
 # define COLORS_FLAGS_FIELD	0x3F80
-# define TYPE_OF_FLAGS		unsigned short
 # define SIZE_OF_FLAGS		(sizeof(TYPE_OF_FLAGS) * 8)
+# define TYPE_OF_FLAGS		unsigned short
+# include "ft_printfdefs.h"
+
 /*
 ** INFO
 */
 # define WSTA_MASK	0x1
 # define PSTA_MASK	0x2
 # define PNUM_MASK	0x4
+
 /*
 ** LENGTH, SPECIFIERS
 */
 # define CHARS_LENGTH		"jztLhl"
 # define NUM_DBL_CHAR_LEN	2
-# define CHARS_SPECIFIERS	"diuoxXfFeEgGaAcspn%bS"
-# define NUM_SPECIFIERS		21 + 1
+# define CHARS_SPECIFIERS	"diuoxXfFeEgGaAcspn%brDUO"
+# define NUM_SPECIFIERS		25 + 1
+
 /*
 ** MACROS
 */
 # define AND_F(x) (part->flags & x)
 # define AND_I(x) (part->info & x)
 # define PAD_CHAR part->flags & ZERO_MASK ? '0' : ' '
+
 /*
 ** MISC
 */
 # define NUM_C_TAGS 33
 # define NUM_SMALLC_TAGS 7
+
 /*
 ** BUFFERS
 */
@@ -73,40 +88,10 @@
 # define DEFAULT_FILLER ' '
 
 /*
-** Main struct (linked list). (One for each '%' in format)[+1].
-** 'str_ptr' pointer in format. Following format beginning or
-** previous specifier, 'str_size' to locate the end.
-** 'nbr_ptr' string resulting of the %subsitution, 'nbr_size' long.
-** 'flags', 'info', 'width', 'precision', 'length', 'specifier' read in format.
-** 'next' points next link.
-*/
-typedef struct				s_printf_part
-{
-	const char				*str_ptr;
-	size_t					str_size;
-	char					*nbr_ptr;
-	int						nbr_size;
-	TYPE_OF_FLAGS			flags;
-	unsigned char			info;
-	int						width;
-	int						precision;
-	unsigned char			length;
-	unsigned char			specifier;
-	struct s_printf_part	*next;
-}							t_printf_part;
-
-typedef union				u_readbit
-{
-	unsigned char			u;
-	char					s;
-}							t_readbit;
-
-/*
 ** For external use.
 */
 int		ft_getprintf(char **ret, const char *format, va_list args);
-int		ft_ibuffer(char *arg1, int arg2);
-int		ft_fbuffer(char **ret, const char *arg1, int arg2);
+void	ptf_free_list(t_printf_part **beginning);
 
 int		parse_format(const char *format, t_printf_part **beginning);
 int		final_string_size(t_printf_part *current);
@@ -125,13 +110,16 @@ int		store_opt_8(char c, t_printf_part *part);
 /*
 ** Specifiers building.
 */
-void	populate_build_nbr(int(*build_nbr[NUM_SPECIFIERS])
-			(t_printf_part *part, va_list *args));
+/* void	populate_build_nbr(int(*build_nbr[NUM_SPECIFIERS]) */
+/* 			(t_printf_part *part, va_list *args)); */
+int		build_nbr_0(t_printf_part *part, va_list *args);
 int		build_nbr_1(t_printf_part *part, va_list *args);
 int		build_nbr_3(t_printf_part *part, va_list *args);
 int		build_nbr_4(t_printf_part *part, va_list *args);
 int		build_nbr_5(t_printf_part *part, va_list *args);
 int		build_nbr_6(t_printf_part *part, va_list *args);
+int		build_nbr_7(t_printf_part *part, va_list *args);
+int		build_nbr_8(t_printf_part *part, va_list *args);
 int		build_nbr_13(t_printf_part *part, va_list *args);
 int		build_nbr_14(t_printf_part *part, va_list *args);
 int		build_nbr_15(t_printf_part *part, va_list *args);
@@ -140,6 +128,9 @@ int		build_nbr_17(t_printf_part *part, va_list *args);
 int		build_nbr_19(t_printf_part *part, va_list *args);
 int		build_nbr_20(t_printf_part *part, va_list *args);
 int		build_nbr_21(t_printf_part *part, va_list *args);
+int		build_nbr_22(t_printf_part *part, va_list *args);
+int		build_nbr_23(t_printf_part *part, va_list *args);
+int		build_nbr_24(t_printf_part *part, va_list *args);
 t_i64	get_signed_varg(t_byte length, va_list *args);
 t_ui64	get_unsigned_varg(t_byte length, va_list *args);
 
@@ -155,6 +146,8 @@ char	*ft_build_unnormalized(double nbr, t_printf_part *part);
 char	*ft_build_normalized(double nbr, t_printf_part *part);
 void	round_mantissa_b16(char **ptr, int pre, int *int_part_two);
 
+char	*ptf_build_decnbr(double nbr, t_printf_part *part);
+
 /*
 ** %S dependencies.
 */
@@ -164,16 +157,21 @@ void	npnt_cat(char **ret, char src, char *input, int *color_status);
 /*
 ** Buffer.
 */
+int		ft_fbuffer(char **ret, const char *arg1, int arg2);
+char	*tabbuffer_settable(char *arg1);
+int		ptf_fflush_table_buffer(char **ret);
 int		ptf_buffer_infos(char *arg1, int arg2);
 int		ptf_cols_concat_string(char **ret, t_list *l, int *cols, int n);
 size_t	ptf_calc_real_content_size(t_list *lst);
+t_list	*ptf_buffer(char *arg1, int arg2, void *arg3);
+int		ptf_fflush_cols_buffer(char **ret, int width);
+int		ptf_fflush_lscols(char **ret, int width);
+void	ptf_lscols_getdatas(t_list *lst, int wid, int *datas);
+size_t	ptf_showed_len(char *str);
 
 /*
-** shity debug
+** debug
 */
-# include <stdio.h>
-typedef unsigned char *byte_pointer;
 void	inspect_part(t_printf_part *part);
-void	showbits(byte_pointer x, int bits, int highlightmin, int highlightmax);
 
 #endif

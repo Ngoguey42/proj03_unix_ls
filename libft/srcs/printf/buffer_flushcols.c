@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/12 11:58:33 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/11/12 12:09:00 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/11/24 12:15:04 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,9 @@
 #include "ft_math.h"
 
 /*
-** 'ptf_cols_buffer'
 ** returns NULL if error.
 ** TODO: def a free content function.
 */
-
-t_list			*ptf_cols_buffer(char *arg1, int arg2, void *arg3)
-{
-	static t_list **buf = NULL;
-
-	if (!buf)
-		if (!(buf = (t_list**)ft_memalloc(sizeof(t_list*))))
-			return (NULL);
-	if (ft_strequ("cleanbuf", arg1))
-		ft_lstdel(buf, NULL);
-	else if (ft_strequ("getbuf", arg1))
-		return (*buf);
-	else if (ft_strequ("pushone", arg1))
-		if (!(ft_lstnewback(buf, arg3, (size_t)arg2)))
-			return (NULL);
-	return (*buf);
-}
 
 static size_t	calc_max_cols(t_list *lst, int screenwidth)
 {
@@ -73,7 +55,7 @@ int				narrow_down_num_cols(int *cols, int scw, t_list *l, size_t ncol)
 	while (l)
 	{
 		total -= cols[i];
-		cols[i] = MAX(cols[i], ptf_calc_real_content_size(l));
+		cols[i] = MAX((size_t)cols[i], ptf_calc_real_content_size(l));
 		total += cols[i];
 		if ((total + (int)(ncol - 1) * spacer_width) > scw)
 			return (1);
@@ -90,9 +72,8 @@ int				ptf_fflush_cols_buffer(char **ret, int width)
 	size_t	num_cols;
 	int		retval;
 
-	if (!(lst = ptf_cols_buffer("getbuf", 0, 0)))
+	if (!(lst = ptf_buffer("getbuf", 0, 0)))
 		return (-1);
-	printf("(SALUT)\n");
 	num_cols = calc_max_cols(lst, width);
 	if (!(cols_widths = (int*)malloc(sizeof(int) * (num_cols))))
 		return (-1);
@@ -101,6 +82,6 @@ int				ptf_fflush_cols_buffer(char **ret, int width)
 	retval = ptf_cols_concat_string(ret, lst, cols_widths, num_cols);
 	if (retval < 0)
 		return (-1);
-	ptf_cols_buffer("cleanbuf", 0, 0);
+	ptf_buffer("cleanbuf", 0, 0);
 	return (retval);
 }

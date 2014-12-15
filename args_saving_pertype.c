@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/14 09:55:29 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/11/18 07:51:45 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/11/20 10:47:47 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,18 @@
 #define GENERAL_PADDING (t_byte)((void*)&g_struct.general - (void*)&g_struct)
 
 /*
+** 'error_type' 'flag_type' 'option_type' 'target_type'
 ** One function for one behavior depending of the arg type and position.
+** (See 'args_saving.c')
+*/
+/*
+** 'g_infos[][4][2]' contains bitwise operations necessary for flags saving.
+** 		'*_PADDING' for padding inside 's_lsargs' struct.
+** 		'*_MASK' for masks inside 't_lsargs' bytes
 */
 
 const t_lsargs	g_struct;
-
-const t_byte	g_infos[][3][2] =
+const t_byte	g_infos[][4][2] =
 {
 	{	{FILTERS_PADDING, FISHOWHIDDEN_MASK},
 		{0, 'A'}
@@ -45,9 +51,11 @@ const t_byte	g_infos[][3][2] =
 	}, {{TXFMT_PADDING, TFNPRINT_MASK},
 		{TXFMT_PADDING, TFESCAPE_MASK},
 		{0, 'b'}
-	}, {{GENERAL_PADDING, ONLYFOLDERS_MASK},
+	}, {{GENERAL_PADDING, ASFILES_MASK},
 		{0, 'd'}
-	}, {{SORTING_PADDING, SONOSORT_MASK},
+	}, {{FILTERS_PADDING, FISHOWHIDDEN_MASK},
+		{FILTERS_PADDING, FISHOWDOTS_MASK},
+		{SORTING_PADDING, SONOSORT_MASK},
 		{0, 'f'}
 	}, {{LGFMT_PADDING, LF_MASK},
 		{LGFMT_PADDING, LFNOUID_MASK},
@@ -66,8 +74,8 @@ const t_byte	g_infos[][3][2] =
 		{0, 'r'}
 	}, {{SORTING_PADDING, SOTIME_MASK},
 		{0, 't'}
-	}, {{LGFMT_PADDING, LFCTIME_MASK},
-		{SORTING_PADDING, SOCTIME_MASK},
+	}, {{LGFMT_PADDING, LFATIME_MASK},
+		{SORTING_PADDING, SOATIME_MASK},
 		{0, 'u'}
 	}, {{SMFMT_PADDING, SFONECOL_MASK},
 		{0, '1'}
@@ -92,7 +100,7 @@ static int	flag_type(char *arg, t_lsargs *args)
 	while (*++arg != '\0')
 	{
 		if ((i = ft_strcharlen(LS_FLAGS, *arg)) >= LS_NUMFL)
-			ft_error_illegal_op(1, *arg, args->ex, &ls_free_args);
+			ft_error_illegal_op(1, *arg, args->ex, NULL);
 		j = -1;
 		while (g_infos[i][++j][0] != 0)
 			*(t_byte*)(argsp + g_infos[i][j][0]) |= g_infos[i][j][1];
@@ -114,8 +122,8 @@ static int	target_type(char *arg, t_lsargs *args)
 	return (0);
 }
 
-int			ls_populate_saveargs_pertype(int (*ls_savearg_pertype[4])(char *arg,
-											t_lsargs *args))
+int			ls_populate_saveargs_pertype(int (*ls_savearg_pertype[4])
+										(char *arg, t_lsargs *args))
 {
 	ls_savearg_pertype[0] = &error_type;
 	ls_savearg_pertype[1] = &flag_type;

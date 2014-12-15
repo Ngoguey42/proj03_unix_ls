@@ -21,5 +21,5 @@ void	ft_error_malloc(void);
 void	ft_error_illegal_op(int fi, char o, char *ex, void (*f)(void *p));
 void	ft_error_unknown(void);
 void	ft_error_fistrerrno(int fi, char *s);
-
+void	ft_error_fistrno(int fi, char *s, int no);
 #endif

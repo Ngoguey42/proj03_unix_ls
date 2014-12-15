@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_tabadd.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2014/11/24 08:29:24 by ngoguey           #+#    #+#             */
+/*   Updated: 2014/12/01 12:01:53 by ngoguey          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include <stdio.h>
 #include <stdlib.h>
 #include "libft.h"
+#include <ft_debug.h>
 
-#define TAB_INCREMENT 1
+#define TAB_INCREMENT 5
 
 /*
 ** 'ft_tabadd' stores 'new' in '*atab' and may ask for a table resize, storing
@@ -12,43 +23,7 @@
 ** ('realloc', stdlib's function is never allowed).
 */
 
-
-void	*ft_realloc(void *ptr, size_t old_size, size_t new_size)
-{
-	void	*new;
-
-	if (!(new = malloc(new_size)))
-		return (NULL);
-	if (new_size < old_size)
-		old_size = new_size;
-	if (ptr && old_size > 0)
-	{
-		ft_memcpy(new, ptr, old_size);
-		free(ptr);
-	}
-	return (new);
-}	
-
-void	*ft_crealloc(void *ptr, size_t old_size, size_t new_size)
-{
-	void	*new;
-
-	if (!(new = malloc(new_size)))
-		return (NULL);
-	if (new_size < old_size)
-		old_size = new_size;
-	if (ptr && old_size > 0)
-	{
-		ft_memcpy(new, ptr, old_size);
-		free(ptr);
-		ft_bzero(new + old_size, new_size - old_size);
-	}
-	else
-		ft_bzero(new + old_size, new_size);
-	return (new);
-}
-
-static int	realloc_table(t_tabdt	*s)
+static int	realloc_table(t_tabdt *s)
 {
 	void	**new;
 
@@ -56,44 +31,41 @@ static int	realloc_table(t_tabdt	*s)
 				sizeof(void*) * (s->size + 1 + TAB_INCREMENT));
 	if (!new)
 	{
-		perror("'realloc_tables' malloc failed");
+		ft_putendl_fd("'realloc_tables' malloc failed", 2);
 		return (1);
 	}
 	s->ptr = new;
 	return (0);
 }
 
-int		ft_tabadd(void ***atab,  void *new)
+int			ft_tabadd(void ***atab, void *new)
 {
 	t_tabdt	*s;
 
+	ft_tabadddebug1(atab, new);
 	if (!(s = ft_tabcc(*atab)))
 		return (1);
 	if (s->size % TAB_INCREMENT == 0)
 	{
+		ft_tabadddebug2(s, TAB_INCREMENT);
 		if (realloc_table(s))
 			return (1);
+		ft_tabadddebug3(atab, s);
 		*atab = s->ptr;
 	}
 	s->ptr[s->size++] = new;
+	ft_tabadddebug4(s, new);
 	return (0);
 }
 
-void	*ft_memdup(void *p, size_t size)
+int			ft_tabaddm(void ***atab, void *new, size_t size)
 {
-	void *new;
-
-	if (!(new = malloc(size)))
-		return (NULL);
-	ft_memcpy(new, p, size);
-	return (new);
-}
-
-t_bool	ft_tabaddm(void ***atab, void *new, size_t size)
-{
-	void *newm;
+	void	*newm;
 
 	if (!(newm = ft_memdup(new, size)))
-		return (false);
-	return ((t_bool)ft_tabadd(atab, newm));
+	{
+		ft_putendl_fd("'ft_tabaddm' malloc failed", 2);
+		return (1);
+	}
+	return (ft_tabadd(atab, newm));
 }

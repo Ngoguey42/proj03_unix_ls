@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/03 20:28:26 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/11/18 08:54:03 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/10 12:05:30 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define LIBFT_H
 
 # include <stddef.h>
+# include <stdarg.h>
+# include <stdio.h> //debug
 # include "ft_typedefs.h"
 
 /*
@@ -24,21 +26,20 @@
 /*
 ** Formatted input/output:
 ** int		ft_fprintf(FILE *stream, const char *format, ...);
-** int     ft_vprintf(const char *format, va_list arg);
 ** int     ft_vfprintf(FILE *stream, const char *format, va_list arg);
-** int     ft_vdprintf(int fd, const char *format, va_list ap);
-** int     ft_vsprintf(char *s, const char *format, va_list arg);
-** int     ft_vsnprintf(char *s, size_t n, const char *format, va_list arg);
 */
+
+int		ft_vprintf(const char *format, va_list arg);
+int		ft_vdprintf(int fd, const char *format, va_list ap);
+int		ft_vsprintf(char *s, const char *format, va_list arg);
+int		ft_vsnprintf(char *s, size_t n, const char *format, va_list arg);
 int		ft_printf(const char *format, ...);
 int		ft_dprintf(int fd, const char *format, ...);
 int		ft_sprintf(char *str, const char *format, ...);
 int		ft_snprintf(char *s, size_t n, const char *format, ...);
 
-int		ft_ibuffer(char *arg1, int arg2);
-int		ft_fbuffer(char **ret, const char *arg1, int arg2);
-int		ft_printfflush(const char *type, int wid);
-
+int		ft_printfibuf(char *arg1, int arg2, void *arg3);
+int		ft_printffbuf(const char *type, int wid);
 /*
 ** Character input/output:
 */
@@ -90,6 +91,8 @@ char	*ft_utoa(t_ui32 value, char *str, int base);
 ** Custom Strings Manipulation:
 */
 int		ft_maxintlen(size_t sizeofint, int base);
+int		ft_convsz(t_ui64 bytes, char *buffer);
+void	ft_putexpchar(int exp, char *buffer);
 char	*ft_pad_string(char *str, char c, int n, int freestr);
 char	*ft_revstr(char *str);
 int		ft_eval_expr(char *str);
@@ -97,6 +100,9 @@ int		ft_eval_expr(char *str);
 ** Allocation:
 */
 void	*ft_memalloc(size_t size);
+void	*ft_memdup(void *p, size_t size);
+void	*ft_realloc(void *ptr, size_t old_size, size_t new_size);
+void	*ft_crealloc(void *ptr, size_t old_size, size_t new_size);
 void	ft_memdel(void **ap);
 char	*ft_strnew(size_t size);
 void	ft_strdel(char **as);
@@ -128,6 +134,7 @@ int		ft_toupper(int c);
 
 int		ft_isascii(int c);
 int		ft_ispair(int c);
+int		ft_isescape(int c);
 int		ft_isdigit_base(int c, int base);
 
 /*
@@ -144,6 +151,11 @@ void	*ft_memccpy(void *dst, const void *src, int c, size_t n);
 char	*ft_strcpy(char *dst, const char *src);
 char	*ft_strncpy(char *s1, const char *s2, size_t num);
 size_t	ft_strlcpy(char *s1, const char *s2, size_t num);
+
+char	*ft_strccpy(char *dst, const char *src);
+char	*ft_catpath(const char *path, const char *file, char *dst);
+char	*ft_filename(const char *path, char *dst);
+void	*ft_memccpy2(void *dst, const void *src, size_t n);
 /*
 ** Concatenation:
 */
@@ -161,6 +173,9 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_strequ(char const *s1, char const *s2);
 int		ft_strnequ(const char *s1, const char *s2, size_t n);
 int		ft_match(char *s1, char *s2);
+int		ft_voidstrcmp(const void *s1, const void *s2);
+int		ft_voiduintcmp(const void *s1, const void *s2);
+int		ft_voidintcmp(const void *s1, const void *s2);
 /*
 ** Searching:
 */
@@ -184,6 +199,8 @@ void	ft_striter(char *s, void (*f)(char*));
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 char	*ft_strmap(char const *s, char (*f)(char));
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
+void	*ft_memcset(void *b, int c, size_t len);
+int		get_next_line(int const fd, char **line);
 
 /*
 ** -
@@ -209,6 +226,9 @@ t_ui32	ft_sqrtfloor(t_ui32 n);
 */
 double	ft_ceil(double nb);
 double	ft_floor(double nb);
+
+int		ft_idiv_ceil(int n, int d);
+int		ft_idiv_floor(int n, int d);
 /*
 ** Floating-point manipulation functions:
 */
@@ -292,18 +312,29 @@ size_t	ft_lstsize(t_list *lst);
 void	ft_lstprntone(t_list *lst);
 void	ft_lstprnt(t_list *lst);
 
-
 /*
 ** -
 ** My default tables manipulation functions
 ** -
 */
-int		ft_tabadd(void ***atab,  void *new);
-t_bool  ft_tabaddm(void ***atab, void *new, size_t size);
+/*
+** Void* Tables
+*/
+int		ft_tabadd(void ***atab, void *new);
+int		ft_tabaddm(void ***atab, void *new, size_t size);
 t_tabdt	*ft_tabcc(void **requested);
 size_t	ft_tabsize(void **tab);
 int		ft_tabdel(void ***atab);
-void	ft_tabsort(void **tab, int (*f)(const void *s1, const void *s2));
+int		ft_tabdel2(void ***atab);
+int		ft_tabdelf(void ***atab, void (*f)(void *c));
+void	ft_tabsort(void **tab, int (*f)(const void *s1, const void *s2), int n);
+/*
+** Metatables
+*/
+t_metat	*ft_metacc(char *requested);
+void	*ft_metaget(char *tabname, const void *key);
+int		ft_metaset(char *tabname, void *(*f)(const void *k),
+						int (*c)(const void *s1, const void *s2), size_t keysz);
 
 /*
 ** Others
@@ -315,9 +346,10 @@ size_t	ft_tblsize(void **tbl);
 ** My custom debug functions
 ** -
 */
-t_ui64	ft_getptri(void * ptr);
+t_ui64	ft_getptri(void *ptr);
 void	ft_myassert(int relation);
 int		ft_myputnchar(char *str, int num);
 void	*ft_memprint(void *p, size_t s);
+int		qprintf(const char *format, ...);
 
 #endif

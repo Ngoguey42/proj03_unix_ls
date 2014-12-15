@@ -69,3 +69,11 @@ void	ft_error_fistrerrno(int fi, char *s)
 		ft_dprintf(2, "%s: ", s);
 	ft_dprintf(2, "%s\n", strerror(errno));
 }
+
+void	ft_error_fistrno(int fi, char *s, int no)
+{
+	ft_dprintf(2, "%s: ", g_names[fi]);
+	if (s)
+		ft_dprintf(2, "%s: ", s);
+	ft_dprintf(2, "%s\n", strerror(no));
+}

@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/12 12:39:56 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/11/12 15:28:17 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/09 14:40:31 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,27 +83,15 @@ static char		*build_hex_sci(double nbr, t_printf_part *part, int type)
 		str = build_zero(part, PRE);
 	else
 		str = ft_build_unnormalized(nbr, part);
-/* 	printf("\n[DEBUG;Sta2;%s]", str); fflush(stdout); */
 	if (type <= 6 && AND_F(ZERO_MASK) && !AND_F(MINU_MASK) &&
 		WID > (int)(HEXFL_LEN_PLUS_PREFIX + 2))
-		str = ft_pad_string(str, '0', WID - (HEXFL_HAS_PREFIX ? 1 : 0) - 2
-		, 1);
-/* 	printf("\n[DEBUG;Bis2;%s;%zu]", str, ft_strlen(str)); fflush(stdout); */
-/* 	ft_myputnchar(str, ft_strlen(str) + 1); */
-	char *str2 = (char*)ft_strdup(str); //debug
-	str = str2;
-/* 		printf("\n[DEBUG;Ter2;%s]", str); fflush(stdout); */
+		str = ft_pad_string(str, '0', WID - (HEXFL_HAS_PREFIX ? 1 : 0) - 2, 1);
 	if (type <= 6)
-	{
 		str = (char*)ft_strjoinfree("0x", str, 0, 1);
-/* 		printf("\n[DEBUG;Qua2;%s]", str); fflush(stdout); */
-	}
-/* 	printf("\n[DEBUG;LOL2;%s]", str); fflush(stdout); */
 	if ((type % 2) == 0 && type != 10)
 		str = (char*)ft_strjoinfree("-", str, 0, 1);
 	else if (AND_F(PLUS_MASK) || AND_F(SPAC_MASK))
 		str = (char*)ft_strjoinfree(AND_F(PLUS_MASK) ? "+" : " ", str, 0, 1);
-/* 	printf("\n[DEBUG;End2]"); fflush(stdout); */
 	return (str);
 }
 
@@ -115,9 +103,7 @@ int				build_nbr_13(t_printf_part *part, va_list *args)
 	WID = AND_I(WSTA_MASK) ? va_arg(*args, int) : WID;
 	PRE = AND_I(PSTA_MASK) ? va_arg(*args, int) : PRE;
 	nbr = va_arg(*args, double);
-/* 	printf("[DEBUG;S1]"); fflush(stdout); */
 	str = build_hex_sci(nbr, part, ft_dbltype(nbr));
-/* 	printf("[DEBUG;E1]"); fflush(stdout); */
 	if (WID > 0 && WID > (int)ft_strlen(str))
 	{
 		if (part->flags & MINU_MASK)

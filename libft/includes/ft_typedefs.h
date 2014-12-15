@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/03 20:39:33 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/11/18 07:56:42 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/01 12:03:11 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,13 @@ typedef unsigned long int		t_ui32;
 typedef long long int			t_i64;
 typedef unsigned long long int	t_ui64;
 
+typedef struct					s_structspec
+{
+	char						*key;
+	size_t						size;
+	int							type;
+}								t_structspec;
+
 typedef union					u_readptr
 {
 	void						*p;
@@ -55,5 +62,20 @@ typedef struct					s_tabdt
 	void						**ptr;
 	size_t						size;
 }								t_tabdt;
+
+typedef struct					s_metak
+{
+	void						*key;
+	void						*value;
+}								t_metak;
+
+typedef struct					s_metat
+{
+	t_metak						**akey[1];
+	size_t						keysz;
+	char						tabname[21];
+	void						*(*initkey)(const void *key);
+	int							(*cmp)(const void *s1, const void *s2);
+}								t_metat;
 
 #endif

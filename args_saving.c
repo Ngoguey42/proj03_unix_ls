@@ -6,17 +6,16 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/14 08:29:47 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/11/18 07:50:22 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/01 14:37:44 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include <ft_ls.h>
 
 /*
 ** 'get_arg_type' returns the raw arg type.
 ** 'get_saving_status' first sets *status, and return the arg type.
-** 'ls_save_args' saves args in a 't_lsargs', and ret a pointer to it, or exits.
+** 'ls_save_args' saves args in the 't_lsargs', or exits.
 */
 
 /*
@@ -32,6 +31,15 @@
 ** 1, flags / options
 ** 2, targets
 ** 9, error
+*/
+/*
+** 'ls_save_args' steps:
+** 1. Populates 'ls_savearg_pertype' from 'args_saving_pertype.c' file.
+** 2. bzeroes 't_lsargs args'
+** 3. Saves binary name for further use.
+** 4. Parses argvs (see above), exits if unknown flag.
+** 5. Adds "." directory if none were found.
+** 6. Alphabetically sorts directories.
 */
 
 static int	get_arg_type(char *curarg)
@@ -50,10 +58,9 @@ static int	get_arg_type(char *curarg)
 
 static int	get_saving_status(int *status, char *curarg)
 {
-	int		argtype;
+	int	argtype;
 
 	argtype = get_arg_type(curarg);
-	// ft_printf("foundtype(%d)", argtype);
 	if (!argtype)
 		*status = 9;
 	else if (*status < 2 && argtype <= 2)
@@ -65,40 +72,28 @@ static int	get_saving_status(int *status, char *curarg)
 	return (argtype);
 }
 
-static int	strcmp_toconstvoid(const void *s1, const void *s2)
+int			ls_save_args(int ac, char **av, t_lsargs args[1])
 {
-	return (ft_strcmp((const char*)s1, (const char*)s2));
-}
+	int	status;
+	int	argtype;
+	int	(*ls_savearg_pertype[4])(char *arg, t_lsargs *save);
 
-t_lsargs	*ls_save_args(int ac, char **av)
-{
-	t_lsargs	*ret;
-	int			status;
-	int			argtype;
-	int			(*ls_savearg_pertype[4])(char *arg, t_lsargs *save);
-
-	ls_populate_saveargs_pertype(ls_savearg_pertype);
-	if (!(ret = (t_lsargs*)ft_memalloc(sizeof(t_lsargs))))
-		ft_error_malloc();
-	ls_free_args((void*)ret);
+	(void)ls_populate_saveargs_pertype(ls_savearg_pertype);
+	ft_bzero((void*)args, sizeof(t_lsargs));
 	status = 0;
-	ret->ex = *av;
+	args->ex = *av;
 	while (ac-- > 1)
 	{
 		av++;
-		// ft_printf("parsing arg(%8s), prevstatus(%d){ ", *av, status);
 		argtype = get_saving_status(&status, *av);
-		if (ls_savearg_pertype[argtype](*av, ret))
-			ft_error_illegal_op(1, 0, ret->ex, &ls_free_args);
-		// ft_printf(" }rettype(%d)", argtype);
-		// ft_printf("newstatus(%d)", status);
-		// ft_putendl("");
+		if (ls_savearg_pertype[argtype](*av, args))
+			ft_error_illegal_op(1, 0, args->ex, NULL);
 	}
-	if (!*ret->folders)
-		if (ft_tabadd((void***)ret->folders, "."))
+	if (!*args->folders)
+		if (ft_tabadd((void***)args->folders, "."))
 			ft_error_malloc();
-	ret->numf = ft_tabsize((void**)*ret->folders);
- 	ft_tabsort((void**)*ret->folders, &strcmp_toconstvoid);
-	printargs(ret);
-	return (ret);
+	args->numf = ft_tabsize((void**)*args->folders);
+	ft_tabsort((void**)*args->folders, &ft_voidstrcmp, 0);
+	printargs(args); //debug
+	return (0);
 }

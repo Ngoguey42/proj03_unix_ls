@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/12 11:48:59 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/11/17 10:26:27 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/10 11:34:09 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 /*
 ** 'ptf_buffer_infos'
-** 'infos[0]' buffer status. 0 "off", 1 "cols"
+** 'infos[0]' buffer status. 0 "off", 1 "cols", 2 "table", 3 "lscols"
 ** 'infos[1]' screen width.
 ** 'infos[2]' spacer char.
 ** 'infos[3]' spacer len.
@@ -52,32 +52,66 @@ int		ptf_buffer_infos(char *arg1, int arg2)
 	return (0);
 }
 
+t_list	*ptf_buffer(char *arg1, int arg2, void *arg3)
+{
+	static t_list *buf[1] = {NULL};
+
+	if (ft_strequ("cleanbuf", arg1))
+		ft_lstdel(buf, &ft_lstfreecont);
+	else if (ft_strequ("getbuf", arg1))
+		return (*buf);
+	else if (ft_strequ("pushone", arg1))
+	{
+		if (!(ft_lstnewback(buf, arg3, (size_t)arg2)))
+			return (NULL);
+	}
+	return (*buf);
+}
+
 int		ft_fbuffer(char **ret, const char *arg1, int arg2)
 {
 	int	retval;
 
-	if (ft_strequ("cols", (char*)arg1) &&
-		ptf_buffer_infos("getstatus", arg2) == 1)
+	if (ptf_buffer_infos("getstatus", 0) == 0)
+		return (-1);
+	if (ft_strequ("cols", (char*)arg1))
 	{
 		ptf_buffer_infos("setwid", arg2);
 		retval = ptf_fflush_cols_buffer(ret, ptf_buffer_infos("getwid", 0));
-		ptf_buffer_infos("setstatus", 0);
 	}
+	else if (ft_strequ("lscols", (char*)arg1))
+	{
+		ptf_buffer_infos("setwid", arg2);
+		retval = ptf_fflush_lscols(ret, ptf_buffer_infos("getwid", 0));
+	}
+	else if (ft_strequ("table", (char*)arg1))
+		retval = ptf_fflush_table_buffer(ret);
 	else
 		return (-1);
+	ptf_buffer_infos("setstatus", 0);
 	return (retval);
 }
 
-int		ft_ibuffer(char *arg1, int arg2)
+int		ft_printfibuf(char *arg1, int arg2, void *arg3)
 {
-	if (ft_strequ("cols", (char*)arg1) &&
-		ptf_buffer_infos("getstatus", arg2) == 0)
+	if (ptf_buffer_infos("getstatus", 0) == 0)
 	{
-		ptf_buffer_infos("setstatus", 1);
+		if (ft_strequ("cols", (char*)arg1))
+			ptf_buffer_infos("setstatus", 1);
+		else if (ft_strequ("lscols", (char*)arg1))
+			ptf_buffer_infos("setstatus", 3);
+		else if (ft_strequ("table", (char*)arg1))
+		{
+			ptf_buffer_infos("setstatus", 2);
+			tabbuffer_settable((char*)arg3);
+		}
+		else
+			return (-1);
 		ptf_buffer_infos("setwid", arg2);
 	}
 	else
 		return (-1);
+	(void)arg3;
 	return (0);
 }
 

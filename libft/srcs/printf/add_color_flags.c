@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/07 17:34:49 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/11/07 17:35:18 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/10 11:58:47 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	add_color_flag(t_printf_part *p)
 			ft_strcpy(s + ft_strlen(TAG_ST) + si, TAG_EN);
 			p->nbr_size = si > 0 ?
 			si + ft_strlen(TAG_ST) + ft_strlen(TAG_EN) : (t_ui32)p->nbr_size;
+			free(p->nbr_ptr);
 			p->nbr_ptr = s;
 		}
 		f >>= 1;
