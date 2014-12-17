@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/02 08:45:48 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/10 12:14:32 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/17 09:40:24 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static int	analyse_target
 	errno = 0;
 	while ((direp = readdir(trg->p)) != NULL)
 	{
+/* 		qprintf("$$$$$$$$$$$$$$ dgb1: %s \n", trg->name); */
 		if (errno)
 			ft_error_fistrerrno(1, direp->d_name);
 		else
@@ -77,8 +78,10 @@ static void	put_headers(char *fn, char *sn, t_lsargs *args, int err)
 		ft_printf("%! $0r:\n", fn);
 	else
 		ft_printf("%! $0hr:\n", fn);
+/* 	qprintf("loool je passe pas ici\n"); */
 	if (err == EACCES)
 	{
+
 		ft_error_fistrerrno(1, sn);
 /* 		ft_putchar('\n'); */
 	}
@@ -91,7 +94,8 @@ void		follow_directories(t_lstrg *trg, t_lsdire **dires, t_lsargs *args)
 	char	buf1[PATH_MAX + 1];
 	char	buf2[PATH_MAX + 1];
 
-	while (*dires)
+	while (dires && *dires)
+/* 	while (*dires) */
 	{
 		ft_catpath(trg->name, (*dires)->name, buf1);
 		errno = 0;
@@ -121,12 +125,19 @@ void		ls_print_directory(t_lstrg *trg, t_lsargs *args)
 	size_t		total[2];
 	char		buf[PATH_MAX + 1];
 
+	ft_filename(trg->name, buf);
+/* 	qprintf("trgerr %d\n", trg->err); */
+	if (trg->err == 13)
+	{
+		if (!LS_FILTERED_OUT && PUTHEADER)
+			put_headers(trg->name, trg->name, args, 13);
+		return ;
+	}
 	total[0] = 0;
 	total[1] = 0;
 	*dires = NULL;
 	(void)analyse_target(trg, dires, args, total);
 	ls_sort_dires(*dires, args);
-	ft_filename(trg->name, buf);
 	if (!LS_FILTERED_OUT)
 	{
 		if (PUTHEADER)
@@ -136,6 +147,7 @@ void		ls_print_directory(t_lstrg *trg, t_lsargs *args)
 		ls_print_dires(*dires, args);
 
 	}
+/* 	qprintf("======>%d %p %s\n", trg->err, *dires, buf); */
 	if (AND_GE(RECURSIVE_MASK))
 		follow_directories(trg, *dires, args);
 	ft_tabdel2((void***)dires);

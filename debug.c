@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/14 14:05:50 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/01 09:37:33 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/17 08:37:33 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,11 @@ void	print_lstrg(t_lstrg *trg)
 #endif
 	ft_dprintf(2, ":MAG:t_lstrg:eob:: {%p} ", (void*)trg);
 	TRGPRINT(name, "25.25s");
-	TRGPRINT(p, "#.4hX");
+	TRGPRINT(p, "#6.4hX");
 	TRGPRINT(err, "2d");
 	TRGPRINT(s, "#.4hX");
 	TRGPRINT(sret, "2d");
+	TRGPRINT(rlnk, "2d");
 	ft_putendl_fd("", 2);
 }
 

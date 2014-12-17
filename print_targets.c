@@ -6,11 +6,12 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/19 08:06:20 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/10 12:09:03 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/17 09:40:06 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <errno.h>
+#include <unistd.h>
 #include <ft_ls.h>
 
 #define FNAME			((*dires)->name)
@@ -45,6 +46,7 @@
 ** 5. Calls printing for directory 'targets'. (May call itself with '-R' flag)
 */
 
+
 static int	analyse_targets(char **folders, t_lstrg **trgs[1], t_lsargs *args)
 {
 	DIR		*dirptr;
@@ -53,17 +55,21 @@ static int	analyse_targets(char **folders, t_lstrg **trgs[1], t_lsargs *args)
 	while (*folders)
 	{
 		errno = 0;
-		ft_bzero((void*)&trg, sizeof(t_lstrg));
 		dirptr = opendir(*folders);
-		trg.err = errno;
-		trg.name = *folders;
-		trg.is_hard_trg = 1;
-		if (dirptr)
-			trg.p = dirptr;
+		ft_bzero((void*)&trg.s, sizeof(struct stat));
+		trg = (t_lstrg){dirptr, errno, *folders, trg.s, 0, 1, 0, 0};
+		trg.rlnk = readlink(*folders, NULL, 0);
+/* 		trg.err = errno; */
+/* 		trg.name = *folders; */
+/* 		trg.is_hard_trg = 1; */
+/* 		if (dirptr) */
+/* 			trg.p = dirptr; */
 		trg.sret = lstat(*folders, &trg.s);
+/* 		trg.sret = lstat(*folders, &trg.s); */
+/* 		qprintf("%s: %u %u %d\n", *folders, trg.sret, trg.err, trg.rlnk); */
 /* 		if (AND_SO(SOTIME_MASK) || AND_SO(SOATIME_MASK)) */
-			trg.sdate = AND_SO(SOATIME_MASK) ? trg.s.st_atime : trg.s.st_mtime;
-			trg.sdate = 19;
+		trg.sdate = AND_SO(SOATIME_MASK) ? trg.s.st_atime : trg.s.st_mtime;
+/*		trg.sdate = 19; */
 		if (ft_tabaddm((void***)trgs, (void*)&trg, sizeof(t_lstrg)))
 			ft_error_malloc();
 		folders++;
@@ -75,7 +81,8 @@ static void	print_bad_targets(t_lstrg **trgs)
 {
 	while (*trgs)
 	{
-		print_lstrg(*trgs); //debug
+/* 		qprintf("dgb1: %s \n", (*trgs)->name); */
+/* 		print_lstrg(*trgs); //debug */
 		if ((*trgs)->err == 2)
 			ft_error_fistrno(1, (*trgs)->name, (*trgs)->err);
 		trgs++;
@@ -107,7 +114,7 @@ static void	print_files_targets(t_lstrg **trgs, t_lsargs *args)
 	*dires = NULL;
 	while (*trgs)
 	{
-		if ((AND_GE(ASFILES_MASK) && (*trgs)->err != 2) || (*trgs)->err == 20)
+		if ((AND_GE(ASFILES_MASK) && (*trgs)->err != 2) || (*trgs)->err == 20 || (*trgs)->rlnk == 0)
 		{
 			ft_bzero(&dire, sizeof(t_lsdire));
 			ft_strcpy(dire.name, (*trgs)->name);
@@ -116,7 +123,7 @@ static void	print_files_targets(t_lstrg **trgs, t_lsargs *args)
 /* 			if (AND_SO(SOTIME_MASK) || AND_SO(SOATIME_MASK)) */
 				dire.sdate = AND_SO(SOATIME_MASK) ? dire.s.st_atime :
 					dire.s.st_mtime;
-				dire.sdate = 17;
+/* 				dire.sdate = 17; */
 			if (ft_tabaddm((void***)dires, (void*)&dire, sizeof(t_lsdire)))
 				ft_error_malloc();
 		}
@@ -141,7 +148,9 @@ int			ls_print(t_lsargs *args)
 		trgs = *atrgs;
 		while (*trgs)
 		{
-			if ((*trgs)->err == 0)
+			print_lstrg(*trgs);
+/* 			qprintf("PRINT TARGETS AS DIRECTORIES: %s##### %d\n", (*trgs)->name, (*trgs)->err); */
+			if ((*trgs)->err == 0 && (*trgs)->rlnk != 0)
 				ls_print_directory(*trgs, args);
 			trgs++;
 		}

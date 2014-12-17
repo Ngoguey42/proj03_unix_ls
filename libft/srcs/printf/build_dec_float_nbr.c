@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/09 14:44:19 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/10 08:48:18 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/17 07:57:16 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,26 +79,6 @@ static char		*build_decpart(double nbr, int pre, int *round)
 	return (save);
 }
 
-static char		*round_up(char *str)
-{
-	int		i;
-/* 	qprintf("roudning"); */
-	i = ft_strlen(str);
-	while (i--)
-	{
-		if (str[i] == '9')
-			str[i] = '0';
-		else if (str[i] == '.')
-			continue ;
-		else
-		{
-			str[i]++;
-			break ;
-		}
-	}
-	return (str);
-}
-
 char			*ptf_build_decnbr(double nbr, t_printf_part *part)
 {
 	char	*str;
@@ -112,6 +92,6 @@ char			*ptf_build_decnbr(double nbr, t_printf_part *part)
 		str = ft_strjoinfree(str, build_decpart(ABS(nbr), PRE, &round), 1, 1);
 	}
 	if (round)
-		round_up(str);
+		ft_roundup_b10(str);
 	return (str);
 }

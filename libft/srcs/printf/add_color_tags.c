@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/07 18:36:23 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/11/12 12:07:15 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/17 08:51:32 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,7 @@ void			string_cat(char *s1, size_t len)
 	}
 	while (len-- > 0)
 	{
-		if (len >= 4 && *s1 == ':' && s1[4] == ':')
+		if (len >= 4 && *s1 == ':' && s1[4] == ':' && get_color_tag_index(s1) < NUM_C_TAGS * 2)
 			len -= track_color_tags(&str, &s1);
 		else
 		{

@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/14 11:29:36 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/10 12:08:52 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/16 15:14:06 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,9 @@ void	ls_free_args(void *args)
 
 void	ls_deltrg(void *trg)
 {
-	closedir(((t_lstrg*)trg)->p);
+/* 	qprintf("%s %p %d", t->name, t->p, t->err); */
+	if (((t_lstrg*)trg)->p != NULL)
+		closedir(((t_lstrg*)trg)->p);
+/* 	qprintf("done\n", t->name); */
 	free(trg);
 }

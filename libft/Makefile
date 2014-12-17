@@ -6,7 +6,7 @@
 #    By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/04 11:29:36 by ngoguey           #+#    #+#              #
-#    Updated: 2014/12/10 11:29:55 by ngoguey          ###   ########.fr        #
+#    Updated: 2014/12/17 07:57:55 by ngoguey          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -52,7 +52,7 @@ ft_atoi.c      ft_itoa_a.c ft_utoa.c ft_lutoa.c\
 ft_atoi_base.c ft_itoa_c.c ft_itoa.c ft_lutoa_a.c\
 \
 ft_maxintlen.c  ft_revstr.c    evlxpr_calculate.c     evlxpr_list.c    ft_convsz.c\
-ft_pad_string.c ft_eval_expr.c evlxpr_convert_chain.c                  \
+ft_pad_string.c ft_eval_expr.c evlxpr_convert_chain.c                  ft_roundup_b10.c\
 ft_memalloc.c   ft_strnew.c    ft_strdup.c            ft_strjoin.c     ft_strtrim.c\
 ft_memdel.c     ft_strdel.c    ft_strsub.c            ft_strjoinfree.c \
 ft_realloc.c    ft_crealloc.c  ft_memdup.c            \
@@ -87,7 +87,10 @@ ft_log2.c                 ft_dbltype.c ft_getbitarray.c ft_idiv.c\
 ft_getptri.c ft_myassert.c ft_myputnchar.c ft_memprint.c qprintf.c\
 \
 ft_tabadd.c ft_tabcc.c ft_tabdel.c ft_tabsize.c ft_tabsort.c ft_tabadddebug.c\
-ft_metacc.c ft_metaget.c ft_metaset.c ft_metagetdebug.c
+ft_metacc.c ft_metaget.c ft_metaset.c ft_metagetdebug.c\
+\
+ft_clock_cc.c ft_clock_update.c
+
 
 #PRINTF_SOURCES
 PTFSRCSFILES = \

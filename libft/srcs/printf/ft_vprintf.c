@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/24 09:00:12 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/10 12:24:09 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/16 07:22:15 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	ft_vsprintf(char *str, const char *format, va_list args)
 	else if (!ret)
 		return (0);
 	ft_memcpy(str, ret, len + 1);
+	free(ret);
 	return (len);
 }
 

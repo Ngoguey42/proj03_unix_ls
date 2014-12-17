@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/03 20:28:26 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/10 12:05:30 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/17 07:57:06 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ char	*ft_utoa(t_ui32 value, char *str, int base);
 */
 int		ft_maxintlen(size_t sizeofint, int base);
 int		ft_convsz(t_ui64 bytes, char *buffer);
+char	*ft_roundup_b10(char *str);
 void	ft_putexpchar(int exp, char *buffer);
 char	*ft_pad_string(char *str, char c, int n, int freestr);
 char	*ft_revstr(char *str);

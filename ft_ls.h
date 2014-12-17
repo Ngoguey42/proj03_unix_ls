@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/12 15:54:54 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/10 12:08:45 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/17 08:37:48 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,12 @@
 ** =>t_byte ...' Contains bitwise flags.		('t_byte' <=> 'unsigned char')
 ** 		Padding 't_lsargs' interpreted as uns chars in 'args_saving_pertype.c'.
 ** 		't_byte's mustn't be first in the struct.
-** =>'**folders[1]' Contains at least one "." folder, read in 'argv'.
-** =>'numf' Num folders.
-** =>'*ex' Binary name.
-** =>'*lformat' See 'main.c'
+** =>'**folders[1]'	Contains at least one "." folder, read in 'argv'.
+** =>'numf'			Num folders.
+** =>'*ex'			Binary name.
+** =>'*lformat'		See 'main.c'
+** =>'curtime'		current time.
+** =>'lfreq'		line feed required.
 */
 typedef struct	s_lsargs
 {
@@ -119,6 +121,7 @@ typedef struct	s_lstrg
 	int			sret;
 	char		is_hard_trg;
 	time_t		sdate;
+	ssize_t		rlnk;
 }				t_lstrg;
 /*
 ** 'struct s_lsdire' One copy for each 'dirent' following a 'readir' call.
