@@ -5,12 +5,31 @@
 --------  -----------------------
 Goals:
 - [X] Recode part of the __ls__ function.
-- [X] Handle flags **"lRqrt"**.
+- [X] **"l"** flag. (Long format)
+- [X] **"R"** flag. (Recursive folder exploration)
+- [X] **"a"** flag. (Show hidden files)
+- [X] **"r"** flag. (Reverse sort)
+- [X] **"t"** flag. (Sort by modification time)
 
-Bonuses:
-- [X] Handle multi-column output while "-l" option is disabled
-- [X] 
+Recommended bonuses:
+- [X] Handle multi-column output when **"l"** option is disabled
+- [X] Print Access Control List, and extented attributes with **"l"** option.
+- [X] **"u"** flag. (With **"t"**: Use access time) (With **"l"**: Show access time)
+- [X] **"f"** flag. (Do not sort)
+- [X] **"g"** flag. (Like **"l"**, do not list file owner)
+- [X] **"d"** flag. (Treat all path arguments as files)
+- [X] **"G"** flag. (Colors)
 
+My additions:
+- [X] **"A"** flag. (Like **"a"**, don't list . and .. directories)
+- [X] **"B"** flag. ()
+- [X] **"C"** flag. (Force multicolum printing when stdout is not a TTY)
+- [X] **"F"** flag. (Append indicator to file names "*/=@|")
+- [X] **"b"** flag. (Print escape codes in files names.)
+- [X] **"h"** flag. (Human readable sizes)
+- [X] **"n"** flag. (Numeric uid and gid in long format)
+- [X] **"o"** flag. (Like **"l"**, do not list group informations)
+- [X] **"1"** flag. (Single-column output when **"l"** option is disabled)
 <br><br><br><br><br><br><br><br>
 
 
