@@ -1,4 +1,4 @@
-# Project #2 FT_LS, Nov 2014
+# Project #3 FT_LS, Nov 2014
 >>>>> #####Mimic unix's ls function.
 
 #####Grade ``(TBD/100)`` ``(TBD/118)*``
@@ -25,7 +25,7 @@ My additions:
 - [X] **"B"** flag. ()
 - [X] **"C"** flag. (Force multicolum printing when stdout is not a TTY)
 - [X] **"F"** flag. (Append indicator to file names "*/=@|")
-- [X] **"b"** flag. (Print escape codes in files names.)
+- [X] **"b"** flag. (Print escape codes in files names)
 - [X] **"h"** flag. (Human readable sizes)
 - [X] **"n"** flag. (Numeric uid and gid in long format)
 - [X] **"o"** flag. (Like **"l"**, do not list group informations)
