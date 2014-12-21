@@ -14,7 +14,7 @@ Goals:
 Recommended bonuses:
 - [X] Handle multi-column output when **"l"** option is disabled
 - [X] Print Access Control List, and extented attributes with **"l"** option.
-- [X] **"u"** flag. (With **"t"**: Use access time) (With **"l"**: Show access time)
+- [ ] **"u"** flag. (With **"t"**: Use access time) (With **"l"**: Show access time)
 - [X] **"f"** flag. (Do not sort)
 - [X] **"g"** flag. (Like **"l"**, do not list file owner)
 - [X] **"d"** flag. (Treat all path arguments as files)
