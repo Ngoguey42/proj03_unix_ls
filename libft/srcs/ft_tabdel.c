@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/24 08:26:57 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/10 12:04:55 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/22 09:30:38 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int		ft_tabdel2(void ***atab)
 	*atab = NULL;
 	return (0);
 }
-
 
 int		ft_tabdelf(void ***atab, void (*f)(void *c))
 {

@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/03 20:39:10 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/16 12:29:06 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/22 09:29:16 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,61 +102,62 @@ union					u_dbl_shape
 typedef union u_dbl_extract		t_dbl_extract;
 typedef union u_nan_dbl_extract	t_nan_dbl_extract;
 typedef union u_dbl_shape		t_dbl_shape;
+
 /*
 ** Coordinates structs.
 */
-typedef struct	s_cooi
+typedef struct			s_cooi
 {
-	int			x;
-	int			y;
-	int			z;
-}				t_cooi;
+	int					x;
+	int					y;
+	int					z;
+}						t_cooi;
 
-typedef struct	s_coof
+typedef struct			s_coof
 {
-	float		x;
-	float		y;
-	float		z;
-}				t_coof;
+	float				x;
+	float				y;
+	float				z;
+}						t_coof;
 
-typedef struct	s_cood
+typedef struct			s_cood
 {
-	double		x;
-	double		y;
-	double		z;
-}				t_cood;
+	double				x;
+	double				y;
+	double				z;
+}						t_cood;
 
-typedef struct	s_cool
+typedef struct			s_cool
 {
-	long double	x;
-	long double	y;
-	long double	z;
-}				t_cool;
+	long double			x;
+	long double			y;
+	long double			z;
+}						t_cool;
 /*
 ** Colors structs.
 */
 
-typedef union	u_co
+typedef union			u_co
 {
 	struct
 	{
-		t_byte	b;
-		t_byte	g;
-		t_byte	r;
-		t_byte	a;
-	}			s;
-	int			i;
-}				t_co;
+		t_byte			b;
+		t_byte			g;
+		t_byte			r;
+		t_byte			a;
+	}					s;
+	int					i;
+}						t_co;
 
 # define VCOTOI(R, G, B, A)	((t_co){{B, G, R, A}})
 
-typedef struct	u_cod
+typedef struct			s_cod
 {
-	double		b;
-	double		g;
-	double		r;
-	double		a;		
-}				t_cod;
+	double				b;
+	double				g;
+	double				r;
+	double				a;
+}						t_cod;
 /*
 ** 'struct s_grad'
 **		type	gradient type.
@@ -179,28 +180,28 @@ typedef struct	u_cod
 **			~.5 obj is half color1, half color2.
 **			~1. obj is mainly color1.
 */
-typedef struct	s_grad
+typedef struct			s_grad
 {
-	int			type;
-	t_co		ico;
-	t_cod		stc1;
-	t_cod		dtc1;
-	t_cod		itc;
-	t_cod		dtc2;
-	t_cod		stc2;
-	double		v1;
-}				t_grad;
+	int					type;
+	t_co				ico;
+	t_cod				stc1;
+	t_cod				dtc1;
+	t_cod				itc;
+	t_cod				dtc2;
+	t_cod				stc2;
+	double				v1;
+}						t_grad;
 /*
 ** Image struct.
 */
-typedef struct	s_img
+typedef struct			s_img
 {
-	void		*img;
-	char		*dat;
-	int			bpp;
-	int			lsz;
-	int			end;
-}				t_img;
+	void				*img;
+	char				*dat;
+	int					bpp;
+	int					lsz;
+	int					end;
+}						t_img;
 
 /*
 ** Math constants.
@@ -225,15 +226,16 @@ typedef struct	s_img
 ** 		'RIF'		Round Integer to Float.
 ** 		'RID'		Round Integer to Double.
 */
-# define RFI(ARG)	((int)round((double)ARG))
-# define RDI(ARG)	((int)round(ARG))
+# define RFI(ARG)	(lrintf((double)ARG))
+# define RDI(ARG)	(lrint(ARG))
 # define RIF(ARG)	((float)ARG)
 # define RID(ARG)	((double)ARG)
 
-# define FCOOTOI(ARG)	(t_cooi){RFI(ARG.x), RFI(ARG.y), RFI(ARG.z)} //float to int
-# define DCOOTOI(ARG)	(t_cooi){RDI(ARG.x), RDI(ARG.y), RDI(ARG.z)} //double to int
-# define ICOOTOF(ARG)	(t_coof){RIF(ARG.x), RIF(ARG.y), RIF(ARG.z)} //int to float
-# define ICOOTOD(ARG)	(t_cood){RID(ARG.x), RID(ARG.y), RID(ARG.z)} //int to double
+# define FCOOTOI(ARG)	(t_cooi){RFI(ARG.x), RFI(ARG.y), RFI(ARG.z)}
+# define DCOOTOI(ARG)	(t_cooi){RDI(ARG.x), RDI(ARG.y), RDI(ARG.z)}
+# define ICOOTOF(ARG)	(t_coof){RIF(ARG.x), RIF(ARG.y), RIF(ARG.z)}
+# define ICOOTOD(ARG)	(t_cood){RID(ARG.x), RID(ARG.y), RID(ARG.z)}
+
 /*
 ** Absolute_Coords_To_Struct(t_cooi|t_coof|t_cood)
 */
@@ -242,7 +244,6 @@ typedef struct	s_img
 # define ACOOTOD(X, Y, Z)	(t_cood){X, Y, Z}
 # define ACOOTOL(X, Y, Z)	(t_cool){X, Y, Z}
 
-// # define DCOOMUL(O, OP) ACOOTOD(O.x * OP, O.y * OP, O.z * OP)
 # define DCOODIV(O, OP) ACOOTOD(O.x / OP, O.y / OP, O.z / OP)
 # define DCOOADDD(O, A) ACOOTOD(O.x + A.x, O.y + A.y, O.z + A.z)
 
@@ -278,7 +279,5 @@ typedef struct	s_img
 # define DCODIV(O, OP) VCOTOD(O.r / (OP), O.g / (OP), O.b / (OP), 0)
 # define DDCOADD(O, A) VCOTOD(O.r + A.r, O.g + A.g, O.b + A.b, 0)
 # define DDCOSUB(O, A) VCOTOD(O.r - A.r, O.g - A.g, O.b - A.b, 0)
-
-
 
 #endif

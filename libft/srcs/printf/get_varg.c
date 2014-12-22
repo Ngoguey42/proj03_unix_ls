@@ -6,11 +6,10 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/07 18:23:00 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/11/17 08:25:55 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/22 09:40:04 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdint.h> //debug
 #include "ft_printf.h"
 #include "libft.h"
 
