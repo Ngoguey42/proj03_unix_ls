@@ -30,8 +30,9 @@ My additions:
 - [X] **"n"** flag. (Numeric uid and gid)
 - [X] **"o"** flag. (Like **"l"**, do not list group informations)
 - [X] **"1"** flag. (Single-column output when **"l"** option is disabled)
+- <br>
 ![ft_ls](http://i.imgur.com/yABt6Jd.png)
-<br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br>
 
 
 ```
