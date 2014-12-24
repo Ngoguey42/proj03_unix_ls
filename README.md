@@ -14,20 +14,20 @@ Goals:
 Recommended bonuses:
 - [X] Handle multi-column output when **"l"** option is disabled
 - [X] Print Access Control List, and extented attributes with **"l"** option.
-- [ ] **"u"** flag. (With **"t"**: Use access time) (With **"l"**: Show access time)
+- [X] **"u"** flag. (With **"t"**: Use access time) (With **"l"**: Show access time)
 - [X] **"f"** flag. (Do not sort)
 - [X] **"g"** flag. (Like **"l"**, do not list file owner)
 - [X] **"d"** flag. (Treat all path arguments as files)
 - [X] **"G"** flag. (Colors)
 
 My additions:
-- [X] **"A"** flag. (Like **"a"**, don't list . and .. directories)
-- [X] **"B"** flag. ()
-- [X] **"C"** flag. (Force multicolum printing when stdout is not a TTY)
-- [X] **"F"** flag. (Append indicator to file names "*/=@|")
-- [X] **"b"** flag. (Print escape codes in files names)
+- [X] **"A"** flag. (Like **"a"**, but do not list . and .. entries)
+- [X] **"B"** flag. (Print numeric value for non-printable characters)
+- [X] **"C"** flag. (Force multi-colum printing when stdout is not a TTY)
+- [X] **"F"** flag. (Append indicator to file names "*/=@|%")
+- [X] **"b"** flag. (Like **"B"**, but use C escape codes whenever possible)
 - [X] **"h"** flag. (Human readable sizes)
-- [X] **"n"** flag. (Numeric uid and gid in long format)
+- [X] **"n"** flag. (Numeric uid and gid)
 - [X] **"o"** flag. (Like **"l"**, do not list group informations)
 - [X] **"1"** flag. (Single-column output when **"l"** option is disabled)
 <br><br><br><br><br><br><br><br>
