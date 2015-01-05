@@ -6,7 +6,7 @@
 #    By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/04 11:29:36 by ngoguey           #+#    #+#              #
-#    Updated: 2014/12/22 10:06:39 by ngoguey          ###   ########.fr        #
+#    Updated: 2014/12/31 07:28:08 by ngoguey          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -54,12 +54,12 @@ ft_atoi_base.c ft_itoa_c.c ft_itoa.c ft_lutoa_a.c\
 ft_maxintlen.c  ft_revstr.c    evlxpr_calculate.c     evlxpr_list.c    ft_convsz.c\
 ft_pad_string.c ft_eval_expr.c evlxpr_convert_chain.c                  ft_roundup_b10.c\
 ft_memalloc.c   ft_strnew.c    ft_strdup.c            ft_strjoin.c     ft_strtrim.c\
-ft_memdel.c     ft_strdel.c    ft_strsub.c            ft_strjoinfree.c \
-ft_realloc.c    ft_crealloc.c  ft_memdup.c            \
+ft_memdel.c     ft_strdel.c    ft_strsub.c            ft_strjoinfree.c ft_strsplit.c\
+ft_realloc.c    ft_crealloc.c  ft_memdup.c                             ft_strsplit_s.c\
 \
 ft_isalnum.c ft_iscntrl.c      ft_islower.c ft_isspace.c  ft_tolower.c\
 ft_isalpha.c ft_isdigit.c      ft_ispair.c  ft_isupper.c  ft_toupper.c\
-ft_isascii.c ft_isdigit_base.c ft_isprint.c ft_isxdigit.c \
+ft_isascii.c ft_isdigit_base.c ft_isprint.c ft_isxdigit.c ft_isunixspace.c\
 ft_isblank.c ft_isgraph.c      ft_ispunct.c ft_isescape.c \
 \
 ft_memcpy.c   ft_strcat.c     ft_memcmp.c  ft_memchr.c  ft_memset.c\
@@ -71,6 +71,7 @@ ft_strlcpy.c                  ft_match.c   ft_strstr.c  ft_striter.c\
 ft_strccpy.c                  ft_voidcmp.c ft_strnstr.c ft_striteri.c\
 ft_catpath.c                                            ft_strmap.c\
 ft_filename.c get_next_line.c                           ft_strmapi.c\
+ft_resolve_path.c ft_getcmdpath.c ft_access.c\
 \
 ft_lstnew.c       ft_lstdel.c       ft_lstiter.c   ft_lstdupone.c ft_lstlast.c\
 ft_lstpushwhere.c ft_lstdelone.c    ft_lstiterif.c ft_lstdup.c    ft_lstat.c\

@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/20 11:36:56 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/16 14:32:10 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/01 11:43:07 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,6 @@ int				ptf_fflush_table_buffer(char **ret)
 	char	*datas;
 	int		*colsizes;
 
-	fflush(stdout);
 	if (!(buf = ptf_buffer("getbuf", 0, NULL)))
 		return (-1);
 	datas = tabbuffer_settable(NULL);

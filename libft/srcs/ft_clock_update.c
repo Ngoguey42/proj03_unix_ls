@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/12 09:28:26 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/22 08:14:47 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/25 11:42:33 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static const char	*ex_w(t_clockev *ev)
 	{
 		ev->el -= ev->dt;
 		ev->cl--;
-		ev->f(ev->data);
+		ev->f(ev->data, ev->dt);
 	}
 	return (NULL);
 }
@@ -38,7 +38,7 @@ static const char	*ex_i(t_clockev *ev)
 {
 	if (ev->el >= ev->dt)
 	{
-		ev->f(ev->data);
+		ev->f(ev->data, ev->dt);
 		ev->el = 0;
 		ev->cl--;
 	}

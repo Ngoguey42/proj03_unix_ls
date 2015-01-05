@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/03 20:28:26 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/17 07:57:06 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/31 11:10:56 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ char	*ft_strjoinfree(char *s1, char *s2, int frees1, int frees2);
 char	*ft_strsub(char const *s, t_ui32 start, size_t len);
 char	*ft_strtrim(char const *s);
 char	**ft_strsplit(char const *s, char c);
+int		ft_strsplit_s(const char *s, char *delims, char ***ret);
 
 /*
 ** ctype.h
@@ -128,6 +129,7 @@ int		ft_islower(int c);
 int		ft_isprint(int c);
 int		ft_ispunct(int c);
 int		ft_isspace(int c);
+int		ft_isunixspace(int c);
 int		ft_isupper(int c);
 int		ft_isxdigit(int c);
 int		ft_tolower(int c);
@@ -156,6 +158,9 @@ size_t	ft_strlcpy(char *s1, const char *s2, size_t num);
 char	*ft_strccpy(char *dst, const char *src);
 char	*ft_catpath(const char *path, const char *file, char *dst);
 char	*ft_filename(const char *path, char *dst);
+int		ft_resolve_path(char *buf);
+int		ft_getcmdpath(const char *cmd, const char *envpath, char **ptr);
+int		ft_access(const char *pathname, int mode);
 void	*ft_memccpy2(void *dst, const void *src, size_t n);
 /*
 ** Concatenation:
@@ -327,6 +332,7 @@ t_tabdt	*ft_tabcc(void **requested);
 size_t	ft_tabsize(void **tab);
 int		ft_tabdel(void ***atab);
 int		ft_tabdel2(void ***atab);
+int		ft_tabdel3(void ***atab);
 int		ft_tabdelf(void ***atab, void (*f)(void *c));
 void	ft_tabsort(void **tab, int (*f)(const void *s1, const void *s2), int n);
 /*
