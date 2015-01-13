@@ -6,7 +6,7 @@
 #    By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/04 11:28:17 by ngoguey           #+#    #+#              #
-#    Updated: 2015/01/13 10:23:24 by ngoguey          ###   ########.fr        #
+#    Updated: 2015/01/13 11:01:13 by ngoguey          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -57,7 +57,9 @@ R = \033[0;31m
 G = \033[0;32m
 E = \033[39m
 
-all: l $(NAME)
+all:
+	make l
+	make $(NAME)
 
 $(NAME): $(OBJECTS) $(ERROBJECTS)
 	@echo -e "$(Y)[COMPILING FT_LS] $(G) $(CC) -o $@ $(CFLAGS) objs.o error.o $(LIBS) $(E)"
