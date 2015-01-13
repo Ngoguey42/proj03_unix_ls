@@ -25,6 +25,30 @@
 */
 
 /*
+** 		** ALL FILES
+** *
+** 		****Main files:
+** 		main.c
+** 		----args_saving.c
+** 		--------args_saving_pertype.c
+** 		----print_targets.c
+** 		--------print_directories.c
+** *
+** 		****Long format printing:
+** 		print_long_format.c
+** 		----print_long_format_deps.c
+** 		----print_long_format_acls.c
+** *
+** 		****Small format printing:
+** 		print_small_format.c
+** *
+** 		****Dependancies:
+** 		metatab_functions.c
+** 		sort_functions.
+** 		free_mem.c
+*/
+
+/*
 ** long table format for ft_printf buffer: g_longtabformat[i][j]
 ** #i columns.
 ** #j infos.
