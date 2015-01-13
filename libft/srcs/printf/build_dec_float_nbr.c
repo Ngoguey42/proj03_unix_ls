@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/09 14:44:19 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/22 09:33:39 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/13 10:51:34 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,13 @@
 
 #define PRE part->precision
 
-static char		*build_intpart(double nbr, int *round)
+static char		*build_intpart(double nbr, int *round, int i)
 {
 	int		exp;
 	char	*str;
 	char	*save;
 	double	lol;
 	double	tmp;
-	int		i;
 
 	if (nbr < 1)
 		return (ft_strdup("0"));
@@ -36,8 +35,8 @@ static char		*build_intpart(double nbr, int *round)
 	save = str;
 	while (exp--)
 	{
-			tmp = ft_floor(nbr / lol);
-			*str++ = (int)tmp + '0';
+		tmp = ft_floor(nbr / lol);
+		*str++ = (int)tmp + '0';
 		nbr = nbr - tmp * lol;
 		lol /= 10;
 	}
@@ -75,7 +74,7 @@ char			*ptf_build_decnbr(double nbr, t_printf_part *part)
 	int		round;
 
 	round = 0;
-	str = build_intpart(ABS(nbr), &round);
+	str = build_intpart(ABS(nbr), &round, 0);
 	if (PRE > 0)
 	{
 		str = ft_strjoinfree(str, ".", 1, 0);

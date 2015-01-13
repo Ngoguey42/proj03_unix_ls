@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/26 13:43:06 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/01 16:06:23 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/13 10:36:21 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,4 @@ void		ls_print_date(struct stat s, t_lsargs *args)
 	}
 	buf[16] = '\0';
 	ft_printf("%s", buf + 4);
-	
 }

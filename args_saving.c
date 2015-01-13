@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/14 08:29:47 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/01 14:37:44 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/13 10:17:21 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,5 @@ int			ls_save_args(int ac, char **av, t_lsargs args[1])
 			ft_error_malloc();
 	args->numf = ft_tabsize((void**)*args->folders);
 	ft_tabsort((void**)*args->folders, &ft_voidstrcmp, 0);
-	printargs(args); //debug
 	return (0);
 }

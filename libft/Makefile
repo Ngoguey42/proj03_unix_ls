@@ -6,7 +6,7 @@
 #    By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/04 11:29:36 by ngoguey           #+#    #+#              #
-#    Updated: 2014/12/31 07:28:08 by ngoguey          ###   ########.fr        #
+#    Updated: 2015/01/09 12:52:24 by ngoguey          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -71,7 +71,8 @@ ft_strlcpy.c                  ft_match.c   ft_strstr.c  ft_striter.c\
 ft_strccpy.c                  ft_voidcmp.c ft_strnstr.c ft_striteri.c\
 ft_catpath.c                                            ft_strmap.c\
 ft_filename.c get_next_line.c                           ft_strmapi.c\
-ft_resolve_path.c ft_getcmdpath.c ft_access.c\
+ft_resolve_path.c ft_getcmdpath.c ft_getcmdpath_env.c ft_access.c\
+ft_envget.c ft_envnew.c ft_expand_tilde_env.c ft_expand_tilde.c\
 \
 ft_lstnew.c       ft_lstdel.c       ft_lstiter.c   ft_lstdupone.c ft_lstlast.c\
 ft_lstpushwhere.c ft_lstdelone.c    ft_lstiterif.c ft_lstdup.c    ft_lstat.c\
@@ -85,13 +86,12 @@ ft_log10.c ft_powi.c      ft_ceil.c    ft_abs.c         \
 ft_log16.c ft_sqrtfloor.c ft_floor.c   operations.c     \
 ft_log2.c                 ft_dbltype.c ft_getbitarray.c ft_idiv.c\
 \
-ft_getptri.c ft_myassert.c ft_myputnchar.c ft_memprint.c qprintf.c\
+ft_getptri.c ft_myassert.c ft_myputnchar.c ft_memprint.c qprintf.c ft_printvar.c\
 \
 ft_tabadd.c ft_tabcc.c ft_tabdel.c ft_tabsize.c ft_tabsort.c ft_tabadddebug.c\
 ft_metacc.c ft_metaget.c ft_metaset.c ft_metagetdebug.c\
 \
 ft_clock_cc.c ft_clock_update.c
-
 
 #PRINTF_SOURCES
 PTFSRCSFILES = \

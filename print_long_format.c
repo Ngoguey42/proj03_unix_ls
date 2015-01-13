@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/18 07:34:07 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/10 11:14:22 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/13 10:26:15 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,13 +98,10 @@ static void	print_name(t_lsdire *dire, t_lsargs *args, mode_t all_bits, char *p)
 	char	eof[6];
 	char	lnk[PATH_MAX + 1 + 4];
 
-
 	dire_colors(args, all_bits, colr, eof);
 	suffix(args, all_bits, suf);
 	if ((all_bits & S_IFMT) == S_IFLNK)
 	{
-/* 		*fullpath = '\0'; */
-/* 		ft_strcat(ft_strcpy(fullpath, dire->ppath), dire->name); */
 		ft_bzero(lnk, (PATH_MAX + 1 + 4) * sizeof(char));
 		readlink(p, ft_strcpy(lnk, " -> ") + 4, PATH_MAX + 1);
 	}

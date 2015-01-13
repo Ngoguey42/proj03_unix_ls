@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/12 15:54:54 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/17 08:37:48 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/13 10:47:23 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,6 @@
 # include <sys/stat.h>
 # include <limits.h>
 # include <time.h>
-
-# include <stdio.h> //debug
-/* # define LSDEBUG //debug */
 
 /*
 ** 'lRart' Mandatory flags in school's 'ft_ls' project.
@@ -40,6 +37,7 @@
 # define TFNPRINT_MASK 0x02
 # define TFESCAPE_MASK 0x04
 # define TFSUFFIX_MASK 0x08
+
 /*
 ** ->long format masks
 */
@@ -50,18 +48,21 @@
 # define LFNUMERICID_MASK 0x08
 # define LFHUMAN_MASK 0x10
 # define LFATIME_MASK 0x20
+
 /*
 ** ->small format masks
 */
 # define AND_SF(ALIAS) (args->smfmt & (ALIAS))
 # define SFONECOL_MASK 0x01
 # define SFMULCOL_MASK 0x02
+
 /*
 ** ->filter masks
 */
 # define AND_FI(ALIAS) (args->filters & (ALIAS))
 # define FISHOWHIDDEN_MASK 0x01
 # define FISHOWDOTS_MASK 0x02
+
 /*
 ** ->sorting masks
 */
@@ -70,6 +71,7 @@
 # define SOREV_MASK 0x02
 # define SOTIME_MASK 0x04
 # define SONOSORT_MASK 0x08
+
 /*
 ** ->general masks
 */
@@ -121,7 +123,7 @@ typedef struct	s_lstrg
 	int			sret;
 	char		is_hard_trg;
 	time_t		sdate;
-	ssize_t		rlnk;
+	int			rlnk;
 }				t_lstrg;
 /*
 ** 'struct s_lsdire' One copy for each 'dirent' following a 'readir' call.
@@ -140,46 +142,48 @@ typedef struct	s_lsdire
 	time_t		sdate;
 }				t_lsdire;
 
-
 /*
 ** 'argv' parsing.
 */
-int			ls_save_args(int ac, char **av, t_lsargs args[1]);
-// void		ls_free_args(void *args);
-int			ls_populate_saveargs_pertype(int (*ls_savearg_pertype[4])
+int				ls_save_args(int ac, char **av, t_lsargs args[1]);
+int				ls_populate_saveargs_pertype(int (*ls_savearg_pertype[4])
 											(char *arg, t_lsargs *args));
 /*
 ** Printing.
 */
-int			ls_print(t_lsargs *args);
-void		ls_printfile_long(t_lsdire *dire, t_lsargs *args);
-void        ls_push_smallformat(t_lsdire **dires, t_lsargs *args);
-void		ls_print_acls(mode_t mode, char *name);
-void		ls_print_dires(t_lsdire **dires, t_lsargs *args);
-void		ls_print_directory(t_lstrg *trg, t_lsargs *args);
-void        suffix(t_lsargs *args, mode_t all_bits, char *buf);
-void        dire_colors(t_lsargs *args, mode_t all_bits, char *colr, char *eof);
-void        ls_print_date(struct stat s, t_lsargs *args);
+int				ls_print(t_lsargs *args);
+void			ls_printfile_long(t_lsdire *dire, t_lsargs *args);
+void			ls_push_smallformat(t_lsdire **dires, t_lsargs *args);
+void			ls_print_acls(mode_t mode, char *name);
+void			ls_print_dires(t_lsdire **dires, t_lsargs *args);
+void			ls_print_directory(t_lstrg *trg, t_lsargs *args);
+void			suffix(t_lsargs *args, mode_t all_bits, char *buf);
+void			dire_colors(t_lsargs *args, mode_t as, char *colr, char *eof);
+void			ls_print_date(struct stat s, t_lsargs *args);
 
 /*
 ** Sorting.
 */
-int			ls_diresname_cmp(const void *s1, const void *s2);
-void		ls_sort_targets(t_lstrg	**trgs, t_lsargs *args);
-void		ls_sort_dires(t_lsdire **dires, t_lsargs *args);
+int				ls_diresname_cmp(const void *s1, const void *s2);
+void			ls_sort_targets(t_lstrg	**trgs, t_lsargs *args);
+void			ls_sort_dires(t_lsdire **dires, t_lsargs *args);
+int				ls_diresname_cmp(const void *s1, const void *s2);
+int				ls_direstime_cmp(const void *s1, const void *s2);
+int				ls_trgsname_cmp(const void *s1, const void *s2);
+int				ls_trgstime_cmp(const void *s1, const void *s2);
 
 /*
 ** Metatables.
 */
-void		*ls_save_uid(const void *k);
-void		*ls_save_gid(const void *k);
-void		ls_deltrg(void *trg);
+void			*ls_save_uid(const void *k);
+void			*ls_save_gid(const void *k);
+void			ls_deltrg(void *trg);
 
 /*
 ** Debug
 */
-void		printargs(t_lsargs *args);
-void		print_lstrg(t_lstrg *trg);
-void		print_lsdire(t_lsdire *dire);
+void			printargs(t_lsargs *args);
+void			print_lstrg(t_lstrg *trg);
+void			print_lsdire(t_lsdire *dire);
 
 #endif

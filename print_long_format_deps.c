@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/26 13:43:06 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/11/26 13:43:51 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/13 10:36:04 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,12 @@ static char get_right(mode_t field, size_t pos, char *name)
 	return ('-');
 }
 
-void ls_print_acls(mode_t mode, char *name)
+void		ls_print_acls(mode_t mode, char *name)
 {
 	char	acls[12];
+	size_t	i;
 
 	ft_bzero((void*)acls, 12);
-	size_t i;
-
 	i = 0;
 	while (i < 11)
 	{

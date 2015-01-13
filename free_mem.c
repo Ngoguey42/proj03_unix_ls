@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/14 11:29:36 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/16 15:14:06 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/13 10:17:44 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ls_free_args(void *args)
 		if (args == NULL)
 			perror("'ls_free_args' was about to free a NULL pointer");
 		else
-			save = (t_lsargs*)args;	
+			save = (t_lsargs*)args;
 	}
 	else
 	{
@@ -40,9 +40,7 @@ void	ls_free_args(void *args)
 
 void	ls_deltrg(void *trg)
 {
-/* 	qprintf("%s %p %d", t->name, t->p, t->err); */
 	if (((t_lstrg*)trg)->p != NULL)
 		closedir(((t_lstrg*)trg)->p);
-/* 	qprintf("done\n", t->name); */
 	free(trg);
 }

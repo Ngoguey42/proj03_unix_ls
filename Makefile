@@ -6,7 +6,7 @@
 #    By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/04 11:28:17 by ngoguey           #+#    #+#              #
-#    Updated: 2014/12/05 13:46:22 by ngoguey          ###   ########.fr        #
+#    Updated: 2015/01/13 10:23:24 by ngoguey          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -40,7 +40,7 @@ LFTRE = re
 LFTG = g
 LFTGRE = gre
 
-SRCSFILES = main.c debug.c free_mem.c args_saving.c args_saving_pertype.c\
+SRCSFILES = main.c free_mem.c args_saving.c args_saving_pertype.c\
 print_long_format.c print_small_format.c sort_func.c print_directories.c\
 print_targets.c metatab_functions.c print_long_format_acls.c
 ERRSRCSFILES = ft_error.c

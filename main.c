@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/12 15:45:01 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/17 07:43:57 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/13 10:33:48 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 ** j == 4 empty.
 */
 
-char	g_longtabformat[8][5] =
+const char	g_longtabformat[8][5] =
 {
 	{0, 1, 1, 0, 0},
 	{0, 0, 0, 0, 0},
@@ -47,20 +47,25 @@ char	g_longtabformat[8][5] =
 	{-1, 0, 0, 0, 0}
 };
 
-# include <math.h>
-# include <string.h>
-# include <stdlib.h>
-# include <ft_math.h>
-# include <stdio.h>
+void	ls_sort_targets(t_lstrg **trgs, t_lsargs *args)
+{
+	if (!trgs || AND_SO(SONOSORT_MASK))
+		return ;
+	if (AND_SO(SOTIME_MASK) || AND_SO(SOATIME_MASK))
+		ft_tabsort((void**)trgs, &ls_trgstime_cmp, AND_SO(SOREV_MASK));
+	else
+		ft_tabsort((void**)trgs, &ls_trgsname_cmp, AND_SO(SOREV_MASK));
+}
 
-#define tprintf(A1, A2)	qprintf("REF:");\
-rref = sprintf(sref, A1, A2);\
-qprintf("%2d:\"%s\"", rref, sref);\
-qprintf("\nCUS:");\
-rcus = ft_sprintf(scus, A1, A2);						\
-qprintf("%2d:\"%s\"", rcus, scus);\
-ft_myassert(ft_strequ(sref, scus));	  \
-qprintf(" %s\n", A1)
+void	ls_sort_dires(t_lsdire **dires, t_lsargs *args)
+{
+	if (!dires || AND_SO(SONOSORT_MASK))
+		return ;
+	if (AND_SO(SOTIME_MASK) || AND_SO(SOATIME_MASK))
+		ft_tabsort((void**)dires, &ls_direstime_cmp, AND_SO(SOREV_MASK));
+	else
+		ft_tabsort((void**)dires, &ls_diresname_cmp, AND_SO(SOREV_MASK));
+}
 
 int		main(int ac, char **av)
 {

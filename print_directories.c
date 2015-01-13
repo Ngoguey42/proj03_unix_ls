@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/02 08:45:48 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/17 09:40:24 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/13 10:41:55 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@
 
 #define PUTHEADER		(args->numf > 1 || !trg->is_hard_trg)
 
-
-
 static int	analyse_target
 	(t_lstrg *trg, t_lsdire **dires[1], t_lsargs *args, size_t t[2])
 {
@@ -47,7 +45,6 @@ static int	analyse_target
 	errno = 0;
 	while ((direp = readdir(trg->p)) != NULL)
 	{
-/* 		qprintf("$$$$$$$$$$$$$$ dgb1: %s \n", trg->name); */
 		if (errno)
 			ft_error_fistrerrno(1, direp->d_name);
 		else
@@ -71,20 +68,15 @@ static int	analyse_target
 static void	put_headers(char *fn, char *sn, t_lsargs *args, int err)
 {
 	if (args->lfreq)
-			ft_putchar('\n');
+		ft_putchar('\n');
 	if (AND_TF(TFESCAPE_MASK))
 		ft_printf("%! $r:\n", fn);
 	else if (AND_TF(TFNPRINT_MASK))
 		ft_printf("%! $0r:\n", fn);
 	else
 		ft_printf("%! $0hr:\n", fn);
-/* 	qprintf("loool je passe pas ici\n"); */
 	if (err == EACCES)
-	{
-
 		ft_error_fistrerrno(1, sn);
-/* 		ft_putchar('\n'); */
-	}
 }
 
 void		follow_directories(t_lstrg *trg, t_lsdire **dires, t_lsargs *args)
@@ -95,7 +87,6 @@ void		follow_directories(t_lstrg *trg, t_lsdire **dires, t_lsargs *args)
 	char	buf2[PATH_MAX + 1];
 
 	while (dires && *dires)
-/* 	while (*dires) */
 	{
 		ft_catpath(trg->name, (*dires)->name, buf1);
 		errno = 0;
@@ -112,11 +103,15 @@ void		follow_directories(t_lstrg *trg, t_lsdire **dires, t_lsargs *args)
 			ntrg.p = d;
 			ls_print_directory(&ntrg, args);
 		}
-		if (d)
-			closedir(d);
+		(void)(d ? closedir(d) : 1);
 		dires++;
 	}
-	(void)trg;
+}
+
+static void	init(size_t total[2], t_lsdire **dires[1])
+{
+	ft_bzero(total, sizeof(total));
+	*dires = NULL;
 }
 
 void		ls_print_directory(t_lstrg *trg, t_lsargs *args)
@@ -126,16 +121,13 @@ void		ls_print_directory(t_lstrg *trg, t_lsargs *args)
 	char		buf[PATH_MAX + 1];
 
 	ft_filename(trg->name, buf);
-/* 	qprintf("trgerr %d\n", trg->err); */
 	if (trg->err == 13)
 	{
 		if (!LS_FILTERED_OUT && PUTHEADER)
 			put_headers(trg->name, trg->name, args, 13);
 		return ;
 	}
-	total[0] = 0;
-	total[1] = 0;
-	*dires = NULL;
+	init(total, dires);
 	(void)analyse_target(trg, dires, args, total);
 	ls_sort_dires(*dires, args);
 	if (!LS_FILTERED_OUT)
@@ -145,9 +137,7 @@ void		ls_print_directory(t_lstrg *trg, t_lsargs *args)
 		if (AND_LF(LF_MASK) && total[1] > 0)
 			ft_printf("total %u\n", total[0]);
 		ls_print_dires(*dires, args);
-
 	}
-/* 	qprintf("======>%d %p %s\n", trg->err, *dires, buf); */
 	if (AND_GE(RECURSIVE_MASK))
 		follow_directories(trg, *dires, args);
 	ft_tabdel2((void***)dires);

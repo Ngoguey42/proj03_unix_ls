@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/17 08:52:01 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/10 10:40:20 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/13 10:26:29 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,6 @@ void		ls_push_smallformat(t_lsdire **dires, t_lsargs *args)
 	ft_bzero(&w, sizeof(struct winsize));
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
 	sfmt = !(AND_SF(SFONECOL_MASK) || !(w.ws_col || AND_SF(SFMULCOL_MASK)));
-
-/* 	qprintf("salutlol sfmt%d  wscol%hu\n", sfmt, w.ws_col); */
 	if (sfmt)
 		ft_printfibuf("lscols", (int)w.ws_col, NULL);
 	while (*dires)
@@ -67,8 +65,5 @@ void		ls_push_smallformat(t_lsdire **dires, t_lsargs *args)
 		dires++;
 	}
 	if (sfmt)
-	{
 		ft_printffbuf("lscols", -1);
-/* 		ft_putendl("\n"); */
-	}
 }
