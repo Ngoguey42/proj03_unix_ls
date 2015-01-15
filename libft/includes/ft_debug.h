@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/01 12:00:09 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/09 14:25:42 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/15 06:57:46 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,7 @@ void	ft_metagetdebug5(t_metat *m, int i);
 void	ft_printvar(char s[3][50], void *ptr, int line);
 
 # define D(T, A) ft_printvar((char[][50]){#T, #A, __FILE__}, (T*)&A, __LINE__)
+
+int		qprintf(const char *format, ...);
 
 #endif
