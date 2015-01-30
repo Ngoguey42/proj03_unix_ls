@@ -1,7 +1,7 @@
 # Project #3 FT_LS, Nov 2014
 >>>>> #####Mimic unix's ls function.
 
-#####Grade ``(TBD/100)`` ``(TBD/118)*``
+#####Grade ``(105/100)`` ``(105/119)*``
 --------  -----------------------
 Goals:
 - [X] Recode part of the __ls__ function.
@@ -51,7 +51,7 @@ All my C files strictly observes school's norm, it may often lead to odd or illo
 ```
 *
 - A grade of 85 was required to validate the project.
-- A maximum grade of 118 was reachable.
+- A maximum grade of 119 was reachable.
 - Second sessions are organised for failed projects.
 <<<<<<< HEAD
 ```
