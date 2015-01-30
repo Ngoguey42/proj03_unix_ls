@@ -53,8 +53,4 @@ All my C files strictly observes school's norm, it may often lead to odd or illo
 - A grade of 85 was required to validate the project.
 - A maximum grade of 119 was reachable.
 - Second sessions are organised for failed projects.
-<<<<<<< HEAD
 ```
-=======
-```
->>>>>>> 0e4d7e91a8693c4ac5174441375af618bb39f7fd
